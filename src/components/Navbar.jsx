@@ -26,8 +26,8 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <div className="text-[13px] font-semibold tracking-[.5px]">Elevatics</div>
-            <div className="text-[9px] tracking-[1px]" style={{ color: "var(--l3)" }}>RV ENERGY INTELLIGENCE</div>
+            <div className="text-[15px] font-semibold tracking-[.5px]">Elevatics</div>
+            <div className="text-[11px] tracking-[1px]" style={{ color: "var(--l3)" }}>RV ENERGY INTELLIGENCE</div>
           </div>
         </div>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
             <button
               key={p.id}
               onClick={() => setActivePage(p.id)}
-              className="px-4 py-[5px] rounded-full text-[12px] font-medium cursor-pointer border-none transition-all duration-200 whitespace-nowrap"
+              className="px-4 py-[5px] rounded-full text-[14px] font-medium cursor-pointer border-none transition-all duration-200 whitespace-nowrap"
               style={{
                 fontFamily: "inherit",
                 background: activePage === p.id ? "rgba(255,255,255,.12)" : "transparent",
@@ -56,7 +56,7 @@ export default function Navbar() {
             style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
             <span className="text-sm">{weather?.wx_icon || "—"}</span>
             <div>
-              <div className="font-mono text-[13px] font-bold">{weather ? `${weather.temp_c?.toFixed(1)}°` : "—°"}</div>
+              <div className="font-mono text-[12px] font-bold">{weather ? `${weather.temp_c?.toFixed(1)}°` : "—°"}</div>
               <div className="text-[9px] max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap" style={{ color: "var(--l3)" }}>
                 {weather?.city || "Locating…"}
               </div>
@@ -65,7 +65,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border"
             style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
             <div>
-              <div className="font-mono text-[14px] font-bold">{simData ? `${simData.soc_pct}%` : "—"}</div>
+              <div className="font-mono text-[13px] font-bold">{simData ? `${simData.soc_pct}%` : "—"}</div>
               <div className="text-[9px]" style={{ color: "var(--l3)" }}>BATTERY</div>
             </div>
           </div>

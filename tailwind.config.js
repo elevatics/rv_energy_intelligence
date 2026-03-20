@@ -19,7 +19,7 @@ export default {
         pink:    "#FF375F",
       },
       fontFamily: {
-        sans: ["-apple-system","BlinkMacSystemFont","SF Pro Text","Helvetica Neue","sans-serif"],
+        sans: ["Inter","Helvetica Neue","Arial","sans-serif"],
         mono: ["SF Mono","Menlo","Monaco","Courier New","monospace"],
       },
       backdropBlur: { glass: "20px" },

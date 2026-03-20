@@ -51,8 +51,8 @@ export default function Settings() {
   const Row = ({ label, sub, children }) => (
     <div className="flex items-center justify-between py-3.5 border-b" style={rowStyle}>
       <div>
-        <div className="text-[13px]">{label}</div>
-        {sub && <div className="text-[10px] mt-0.5" style={{ color: "var(--l3)" }}>{sub}</div>}
+        <div className="text-[15px]">{label}</div>
+        {sub && <div className="text-[12px] mt-0.5" style={{ color: "var(--l3)" }}>{sub}</div>}
       </div>
       {children}
     </div>
@@ -61,11 +61,11 @@ export default function Settings() {
   const Stepper = ({ value, onDec, onInc }) => (
     <div className="flex items-center gap-2.5">
       <button onClick={onDec}
-        className="w-[30px] h-[30px] rounded-full flex items-center justify-center text-[18px] font-light border-none"
+        className="w-[30px] h-[30px] rounded-full flex items-center justify-center text-[20px] font-light border-none"
         style={{ background: "rgba(255,255,255,.08)", color: "#fff", cursor: "pointer", fontFamily: "inherit" }}>−</button>
-      <span className="font-mono text-[16px] font-semibold min-w-[28px] text-center">{value}</span>
+      <span className="font-mono text-[18px] font-semibold min-w-[28px] text-center">{value}</span>
       <button onClick={onInc}
-        className="w-[30px] h-[30px] rounded-full flex items-center justify-center text-[18px] font-light border-none"
+        className="w-[30px] h-[30px] rounded-full flex items-center justify-center text-[20px] font-light border-none"
         style={{ background: "rgba(255,255,255,.08)", color: "#fff", cursor: "pointer", fontFamily: "inherit" }}>+</button>
     </div>
   );
@@ -74,7 +74,7 @@ export default function Settings() {
     <div className="flex rounded-[8px] p-0.5" style={{ background: "rgba(255,255,255,.08)" }}>
       {options.map(o => (
         <button key={o.id} onClick={() => onChange(o.id)}
-          className="flex-1 px-3 py-[5px] rounded-[6px] text-[11px] border-none transition-all whitespace-nowrap"
+          className="flex-1 px-3 py-[5px] rounded-[6px] text-[13px] border-none transition-all whitespace-nowrap"
           style={{
             background: value === o.id ? "rgba(255,255,255,.15)" : "transparent",
             color: value === o.id ? "#fff" : "var(--l2)",
@@ -117,8 +117,8 @@ export default function Settings() {
 
           <div className="flex items-center justify-between pt-3.5" style={{ borderTop: "1px solid rgba(255,255,255,.07)" }}>
             <div>
-              <div className="text-[13px]">Battery capacity</div>
-              <div className="text-[10px] mt-0.5" style={{ color: "var(--l3)" }}>
+              <div className="text-[15px]">Battery capacity</div>
+              <div className="text-[12px] mt-0.5" style={{ color: "var(--l3)" }}>
                 {simConfig.battery_capacity_kwh} kWh LiFePO4
               </div>
             </div>
@@ -145,16 +145,16 @@ export default function Settings() {
                   borderColor: simConfig.weather === w.id ? "rgba(255,159,10,.5)" : "var(--sep)",
                   cursor: "pointer",
                 }}>
-                <span className="text-[22px] mb-1.5">{w.icon}</span>
-                <div className="text-[11px] font-semibold mb-0.5" style={{ color: "var(--l2)" }}>{w.label}</div>
-                <div className="text-[10px]" style={{ color: "var(--l3)" }}>{w.pct}</div>
+                <span className="text-[24px] mb-1.5">{w.icon}</span>
+                <div className="text-[13px] font-semibold mb-0.5" style={{ color: "var(--l2)" }}>{w.label}</div>
+                <div className="text-[12px]" style={{ color: "var(--l3)" }}>{w.pct}</div>
               </button>
             ))}
           </div>
 
           {/* Panel output slider */}
           <div className="mb-3">
-            <div className="flex justify-between text-[11px] mb-1">
+            <div className="flex justify-between text-[13px] mb-1">
               <span style={{ color: "var(--l2)" }}>Panel output</span>
               <span className="font-mono" style={{ color: "#0A84FF" }}>{panelKwh.toFixed(1)} kWh/day</span>
             </div>
@@ -164,7 +164,7 @@ export default function Settings() {
 
           {/* Starting SOC slider */}
           <div>
-            <div className="flex justify-between text-[11px] mb-1">
+            <div className="flex justify-between text-[13px] mb-1">
               <span style={{ color: "var(--l2)" }}>Starting SOC</span>
               <span className="font-mono" style={{ color: "#0A84FF" }}>{startingSoc}%</span>
             </div>
@@ -187,14 +187,14 @@ export default function Settings() {
                     borderColor: activePersona === p.id ? "rgba(10,132,255,.4)" : "var(--sep)",
                     cursor: "pointer",
                   }}>
-                  <span className="text-[32px] mb-2.5">{p.icon}</span>
-                  <div className="text-[13px] font-semibold mb-1">{p.label}</div>
-                  <div className="text-[11px]" style={{ color: "var(--l3)" }}>{p.desc}</div>
+                  <span className="text-[34px] mb-2.5">{p.icon}</span>
+                  <div className="text-[15px] font-semibold mb-1">{p.label}</div>
+                  <div className="text-[13px]" style={{ color: "var(--l3)" }}>{p.desc}</div>
                 </button>
               ))}
             </div>
             <button onClick={applySet}
-              className="w-full py-3.5 rounded-[16px] text-[13px] font-semibold tracking-[.3px] transition-opacity"
+              className="w-full py-3.5 rounded-[16px] text-[15px] font-semibold tracking-[.3px] transition-opacity"
               style={{
                 background: "linear-gradient(135deg,#0A84FF,#0055D4)",
                 border: "none", color: "#fff", cursor: "pointer", fontFamily: "inherit",

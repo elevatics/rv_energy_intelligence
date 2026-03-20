@@ -17,18 +17,18 @@ export default function StatusBar() {
 
   return (
     <div
-      className="h-[34px] flex items-center gap-3.5 px-5 text-[10px] tracking-[.3px] font-mono border-b"
+      className="h-[34px] flex items-center gap-3.5 px-5 text-[12px] tracking-[.3px] font-mono border-b"
       style={{ background: "rgba(0,0,0,.9)", borderColor: "var(--sep)", color: "var(--l3)" }}
     >
-      <div className="w-[5px] h-[5px] rounded-full bg-green breathe flex-shrink-0" />
+      {/* <div className="w-[5px] h-[5px] rounded-full bg-green breathe flex-shrink-0" /> */}
       <span>ELEVATICS RV ENERGY INTELLIGENCE</span>
       <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
-      <span>{simData ? `${simData.ms}ms` : "v2.1 ready"}</span>
+      <span>Sim:{simData ? `${simData.ms}ms` : "v2.1 ready"}</span>
       <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
       <span>{clock}</span>
       <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
       <span
-        className="px-2 py-0.5 rounded-full text-[9px] tracking-[.5px] border"
+        className="px-2 py-0.5 rounded-full text-[11px] tracking-[.5px] border"
         style={
           weather
             ? { borderColor: "rgba(48,209,88,.35)", color: "#30D158" }

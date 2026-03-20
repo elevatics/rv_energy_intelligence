@@ -67,7 +67,7 @@ export default function Appliances() {
         <div className="flex gap-1.5 flex-wrap">
           {CAT_FILTERS.map(f => (
             <button key={f.id} onClick={() => setFilter(f.id)}
-              className="px-3.5 py-1.5 rounded-full text-[11px] border transition-all duration-150"
+              className="px-3.5 py-1.5 rounded-full text-[13px] border transition-all duration-150"
               style={{
                 background: filter === f.id ? "rgba(255,255,255,.1)" : "transparent",
                 borderColor: filter === f.id ? "rgba(255,255,255,.2)" : "var(--sep)",
@@ -79,7 +79,7 @@ export default function Appliances() {
           ))}
         </div>
         <button onClick={() => setModal("new")}
-          className="flex items-center gap-1.5 px-5 py-2 rounded-full text-[12px] font-semibold transition-opacity"
+          className="flex items-center gap-1.5 px-5 py-2 rounded-full text-[14px] font-semibold transition-opacity"
           style={{ background: "#0A84FF", border: "none", color: "#fff", cursor: "pointer", fontFamily: "inherit" }}>
           ＋ Add Appliance
         </button>
@@ -95,8 +95,8 @@ export default function Appliances() {
         ].map(s => (
           <div key={s.l} className="rounded-[16px] border text-center py-3.5 px-3 shadow-[0_2px_8px_rgba(0,0,0,.4)]"
             style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
-            <div className="font-mono text-[20px] font-bold leading-none mb-1" style={{ color: s.c }}>{s.v}</div>
-            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{s.l}</div>
+            <div className="font-mono text-[22px] font-bold leading-none mb-1" style={{ color: s.c }}>{s.v}</div>
+            <div className="text-[11px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{s.l}</div>
           </div>
         ))}
       </div>
@@ -105,7 +105,7 @@ export default function Appliances() {
       <div className="rounded-[22px] border overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,.55)]"
         style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
         {/* Header */}
-        <div className="grid gap-0.5 px-4 py-2.5 border-b text-[9px] tracking-[1.4px] uppercase"
+        <div className="grid gap-0.5 px-4 py-2.5 border-b text-[11px] tracking-[1.4px] uppercase"
           style={{ gridTemplateColumns: "2.2fr 68px 66px 62px 66px 66px 68px 74px 84px 64px", background: "rgba(255,255,255,.03)", borderColor: "var(--sep)", color: "var(--l3)" }}>
           <span>Appliance</span>
           <span className="text-right">Volt V</span>
@@ -120,7 +120,7 @@ export default function Appliances() {
         </div>
 
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-[13px]" style={{ color: "var(--l3)" }}>No appliances in this category.</div>
+          <div className="text-center py-12 text-[15px]" style={{ color: "var(--l3)" }}>No appliances in this category.</div>
         )}
 
         {filtered.map(a => {
@@ -148,20 +148,20 @@ export default function Appliances() {
                   {a.icon}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[12px] font-medium truncate">{a.name}</div>
-                  <div className="text-[9px] mt-0.5 capitalize" style={{ color: "var(--l3)" }}>{a.cat}</div>
+                  <div className="text-[14px] font-medium truncate">{a.name}</div>
+                  <div className="text-[11px] mt-0.5 capitalize" style={{ color: "var(--l3)" }}>{a.cat}</div>
                 </div>
               </div>
 
               {/* Electrical values */}
               {[a.voltage_v, a.current_a, a.power_factor, a.efficiency_pct, a.duty_cycle_pct].map((v, i) => (
-                <div key={i} className="font-mono text-[11px] font-semibold text-right" style={{ color: "var(--l2)" }}>
+                <div key={i} className="font-mono text-[13px] font-semibold text-right" style={{ color: "var(--l2)" }}>
                   {typeof v === "number" ? v.toFixed(i === 2 ? 2 : 0) : v}
                 </div>
               ))}
 
               {/* Real W */}
-              <div className="font-mono text-[11px] font-semibold text-right" style={{ color: a.clr }}>
+              <div className="font-mono text-[13px] font-semibold text-right" style={{ color: a.clr }}>
                 {Math.round(a.effective_watts)}
               </div>
 
@@ -170,25 +170,25 @@ export default function Appliances() {
                 <div className="flex-1 h-[3px] rounded-[2px] overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
                   <div className="h-full rounded-[2px]" style={{ width: `${Math.min(share * 100, 100)}%`, background: a.clr }} />
                 </div>
-                <span className="font-mono text-[9px] min-w-[26px] text-right" style={{ color: "var(--l3)" }}>{dailyKwh}</span>
+                <span className="font-mono text-[11px] min-w-[26px] text-right" style={{ color: "var(--l3)" }}>{dailyKwh}</span>
               </div>
 
               {/* Status chip */}
               <div>
                 {isCrit && (
-                  <span className="text-[9px] px-2 py-0.5 rounded-full font-medium"
+                  <span className="text-[11px] px-2 py-0.5 rounded-full font-medium"
                     style={{ background: "rgba(255,69,58,.12)", color: "#FF453A", border: "1px solid rgba(255,69,58,.25)" }}>
                     ⚡ High
                   </span>
                 )}
                 {!isCrit && a.is_custom && (
-                  <span className="text-[9px] px-2 py-0.5 rounded-full font-medium"
+                  <span className="text-[11px] px-2 py-0.5 rounded-full font-medium"
                     style={{ background: "rgba(191,90,242,.12)", color: "#BF5AF2", border: "1px solid rgba(191,90,242,.2)" }}>
                     Custom
                   </span>
                 )}
                 {!isCrit && !a.is_custom && (
-                  <span className="text-[9px] px-2 py-0.5 rounded-full font-medium"
+                  <span className="text-[11px] px-2 py-0.5 rounded-full font-medium"
                     style={{ background: "rgba(48,209,88,.1)", color: "#30D158", border: "1px solid rgba(48,209,88,.2)" }}>
                     Default
                   </span>
@@ -209,7 +209,7 @@ export default function Appliances() {
                 </label>
                 {/* Edit */}
                 <button onClick={() => setModal(a)}
-                  className="w-[26px] h-[26px] rounded-[6px] flex items-center justify-center text-[12px] transition-all border"
+                  className="w-[26px] h-[26px] rounded-[6px] flex items-center justify-center text-[14px] transition-all border"
                   style={{ border: "1px solid rgba(255,255,255,.1)", background: "transparent", color: "var(--l2)", cursor: "pointer" }}
                   title="Edit">✏️</button>
               </div>

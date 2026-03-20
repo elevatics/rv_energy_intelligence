@@ -45,7 +45,7 @@ export default function Simulate() {
       <div className="flex gap-1.5 mb-3.5">
         {SCENARIOS.map(s => (
           <button key={s.id} onClick={() => simSc(s.id)}
-            className="flex-1 py-2.5 rounded-[12px] text-[11px] font-medium text-center border transition-all"
+            className="flex-1 py-2.5 rounded-[12px] text-[13px] font-medium text-center border transition-all"
             style={{
               background: scenario === s.id ? "rgba(10,132,255,.15)" : "transparent",
               borderColor: scenario === s.id ? "rgba(10,132,255,.4)" : "var(--sep)",
@@ -69,8 +69,8 @@ export default function Simulate() {
         ].map(m => (
           <div key={m.l} className="rounded-[16px] border text-center py-3 px-2"
             style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
-            <div className="font-mono text-[22px] font-bold leading-none mb-1" style={{ color: m.c }}>{m.v}</div>
-            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{m.l}</div>
+            <div className="font-mono text-[24px] font-bold leading-none mb-1" style={{ color: m.c }}>{m.v}</div>
+            <div className="text-[11px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{m.l}</div>
           </div>
         ))}
       </div>
@@ -134,7 +134,7 @@ export default function Simulate() {
                   { h: "Share",     align: "left"  },
                 ].map(col => (
                   <th key={col.h}
-                    className="text-[9px] tracking-[1.2px] uppercase font-medium border-b"
+                    className="text-[11px] tracking-[1.2px] uppercase font-medium border-b"
                     style={{ borderColor: "var(--sep)", color: "var(--l3)", textAlign: col.align, padding: "8px 10px" }}>
                     {col.h}
                   </th>
@@ -144,15 +144,15 @@ export default function Simulate() {
             <tbody>
               {d.breakdown.slice(0, 8).map((a, i) => (
                 <tr key={i} className="border-b" style={{ borderColor: "rgba(255,255,255,.04)" }}>
-                  <td className="py-2 px-2.5 text-[12px]">{a.icon} {a.name}</td>
-                  <td className="font-mono text-[11px] text-right px-2.5" style={{ color: a.clr }}>{Math.round(a.effective_watts)}</td>
-                  <td className="font-mono text-[11px] text-right px-2.5">{a.daily_kwh}</td>
+                  <td className="py-2 px-2.5 text-[14px]">{a.icon} {a.name}</td>
+                  <td className="font-mono text-[13px] text-right px-2.5" style={{ color: a.clr }}>{Math.round(a.effective_watts)}</td>
+                  <td className="font-mono text-[13px] text-right px-2.5">{a.daily_kwh}</td>
                   <td className="px-2.5">
                     <div className="flex items-center gap-1.5">
                       <div className="flex-1 h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
                         <div className="h-full rounded-full" style={{ width: `${Math.min(a.share_pct, 100)}%`, background: a.clr }} />
                       </div>
-                      <span className="font-mono text-[9px] min-w-[28px] text-right" style={{ color: "var(--l3)" }}>{a.share_pct}%</span>
+                      <span className="font-mono text-[11px] min-w-[28px] text-right" style={{ color: "var(--l3)" }}>{a.share_pct}%</span>
                     </div>
                   </td>
                 </tr>
@@ -168,7 +168,7 @@ export default function Simulate() {
 function WiSlider({ label, display, min, max, step, value, onChange, last }) {
   return (
     <div className={last ? "" : "mb-3.5"}>
-      <div className="flex justify-between text-[11px] mb-1">
+      <div className="flex justify-between text-[13px] mb-1">
         <span style={{ color: "var(--l2)" }}>{label}</span>
         <span className="font-mono font-semibold" style={{ color: "#0A84FF" }}>{display}</span>
       </div>
@@ -184,7 +184,7 @@ function Legend({ color, label }) {
   return (
     <div className="flex items-center gap-1">
       <div className="w-2 h-2 rounded-[2px]" style={{ background: color }} />
-      <span className="text-[10px]" style={{ color: "var(--l2)" }}>{label}</span>
+      <span className="text-[12px]" style={{ color: "var(--l2)" }}>{label}</span>
     </div>
   );
 }

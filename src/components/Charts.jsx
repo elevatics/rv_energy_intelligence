@@ -28,11 +28,11 @@ const baseOpts = (yLabel = "") => ({
   scales: {
     x: {
       ticks: { color: "rgba(235,235,245,.3)", font: { size: 9, family: "SF Mono,Menlo,monospace" }, maxRotation: 0, maxTicksLimit: 8 },
-      grid: { color: "rgba(255,255,255,.04)" },
+      grid: { display: false },
     },
     y: {
       ticks: { color: "rgba(235,235,245,.3)", font: { size: 9, family: "SF Mono,Menlo,monospace" } },
-      grid: { color: "rgba(255,255,255,.04)" },
+      grid: { display: false },
       title: yLabel ? { display: true, text: yLabel, color: "rgba(235,235,245,.3)", font: { size: 9 } } : undefined,
     },
   },
@@ -98,14 +98,17 @@ export function NetChart({ netHourly = [], height = 95 }) {
     datasets: [{
       label: "Net kW",
       data: netHourly,
-      backgroundColor: netHourly.map(v => v >= 0 ? "rgba(48,209,88,.5)" : "rgba(255,69,58,.5)"),
-      borderColor:     netHourly.map(v => v >= 0 ? "#30D158" : "#FF453A"),
-      borderWidth: 1,
+      borderColor: "#FF453A",
+      backgroundColor: "rgba(255,69,58,.35)",
+      fill: true,
+      tension: 0.4,
+      borderWidth: 2,
+      pointRadius: 0,
     }],
   };
   return (
     <div style={{ height }}>
-      <Bar data={data} options={baseOpts("kW")} />
+      <Line data={data} options={baseOpts("kW")} />
     </div>
   );
 }

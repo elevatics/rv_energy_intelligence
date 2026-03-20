@@ -8,9 +8,9 @@
   --l2: rgba(235,235,245,.60);
   --l3: rgba(235,235,245,.30);
   --l4: rgba(235,235,245,.12);
-  --glass: rgba(28,28,30,.72);
-  --gb: rgba(255,255,255,.07);
-  --gh: rgba(255,255,255,.10);
+  --glass: rgba(255,255,255,.10);
+  --gb: rgba(255,255,255,.18);
+  --gh: rgba(255,255,255,.26);
 }
 
 * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }

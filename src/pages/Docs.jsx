@@ -19,10 +19,10 @@ export default function Docs() {
       {/* Hero */}
       <div className="rounded-[22px] border p-7 mb-5"
         style={{ background: "linear-gradient(135deg,rgba(10,132,255,.12),rgba(48,209,88,.08))", borderColor: "rgba(10,132,255,.2)" }}>
-        <div className="text-[24px] font-bold mb-2" style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display'" }}>
+        <div className="text-[26px] font-bold mb-2">
           📖 How RV Energy Intelligence Works
         </div>
-        <div className="text-[14px] leading-relaxed max-w-[680px]" style={{ color: "var(--l2)" }}>
+        <div className="text-[16px] leading-relaxed max-w-[680px]" style={{ color: "var(--l2)" }}>
           Every number on the dashboard is calculated from first principles — electrical engineering, battery chemistry,
           and solar physics. This page explains every formula, every constant, and what each score means for your trip.
         </div>
@@ -34,7 +34,7 @@ export default function Docs() {
           style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
           {NAV.map(n => (
             <button key={n.id} onClick={() => setActive(n.id)}
-              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] text-[12px] text-left border-none transition-all"
+              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] text-[14px] text-left border-none transition-all"
               style={{
                 background: active === n.id ? "rgba(10,132,255,.12)" : "transparent",
                 color: active === n.id ? "#0A84FF" : "var(--l2)",
@@ -43,7 +43,7 @@ export default function Docs() {
               }}>
               {n.label}
               {n.badge && (
-                <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded-full font-mono"
+                <span className="ml-auto text-[11px] px-1.5 py-0.5 rounded-full font-mono"
                   style={{ background: n.badgeColor, color: n.badgeText }}>
                   {n.badge}
                 </span>
@@ -76,14 +76,14 @@ function DocSection({ children }) {
   );
 }
 function SecTitle({ children }) {
-  return <div className="text-[17px] font-semibold mb-1.5 flex items-center gap-2.5" style={{ fontFamily: "-apple-system,BlinkMacSystemFont,'SF Pro Display'" }}>{children}</div>;
+  return <div className="text-[19px] font-semibold mb-1.5 flex items-center gap-2.5">{children}</div>;
 }
 function SecSub({ children }) {
-  return <div className="text-[12px] leading-relaxed mb-4" style={{ color: "var(--l2)" }}>{children}</div>;
+  return <div className="text-[14px] leading-relaxed mb-4" style={{ color: "var(--l2)" }}>{children}</div>;
 }
 function FormulaBox({ children }) {
   return (
-    <div className="rounded-[12px] border p-4 my-3 font-mono text-[12px] leading-loose overflow-x-auto"
+    <div className="rounded-[12px] border p-4 my-3 font-mono text-[14px] leading-loose overflow-x-auto"
       style={{ background: "rgba(255,255,255,.04)", borderColor: "rgba(255,255,255,.08)", color: "#5AC8F5" }}>
       <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{children}</pre>
     </div>
@@ -97,19 +97,19 @@ function PillarCard({ cls, color, bg, children }) {
   );
 }
 function PTitle({ children }) {
-  return <div className="text-[13px] font-semibold mb-1 flex items-center gap-2">{children}</div>;
+  return <div className="text-[15px] font-semibold mb-1 flex items-center gap-2">{children}</div>;
 }
 function PBody({ children }) {
-  return <div className="text-[12px] leading-relaxed" style={{ color: "var(--l2)" }}>{children}</div>;
+  return <div className="text-[14px] leading-relaxed" style={{ color: "var(--l2)" }}>{children}</div>;
 }
 function ElecRow({ label, desc }) {
   return (
     <div className="grid mb-2" style={{ gridTemplateColumns: "180px 1fr" }}>
-      <div className="font-mono text-[11px] px-3 py-2 rounded-l-[8px] border"
+      <div className="font-mono text-[13px] px-3 py-2 rounded-l-[8px] border"
         style={{ color: "#5AC8F5", background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
         {label}
       </div>
-      <div className="text-[11px] px-3 py-2 rounded-r-[8px] border border-l-0 leading-relaxed"
+      <div className="text-[13px] px-3 py-2 rounded-r-[8px] border border-l-0 leading-relaxed"
         style={{ color: "var(--l2)", background: "rgba(255,255,255,.02)", borderColor: "var(--sep)" }}>
         {desc}
       </div>
@@ -136,7 +136,7 @@ function StabilitySection() {
         <PTitle><span className="font-mono text-[#0A84FF]">[P1]</span> Energy Autonomy — max 3.5 pts</PTitle>
         <PBody>
           <strong>Question:</strong> How many days can you survive without any external power?<br /><br />
-          <code className="font-mono text-[11px]" style={{ color: "#5AC8F5" }}>P1 = min(3.5, (days_off_grid / 14) × 3.5)</code><br /><br />
+          <code className="font-mono text-[13px]" style={{ color: "#5AC8F5" }}>P1 = min(3.5, (days_off_grid / 14) × 3.5)</code><br /><br />
           The reference benchmark is <strong>14 days</strong> — the gold standard for serious boondocking (BLM land, US Southwest).
           At 14 days you earn the full 3.5 points. At 7 days you earn 1.75. At 2 days you earn 0.5.
         </PBody>
@@ -146,7 +146,7 @@ function StabilitySection() {
         <PTitle><span className="font-mono text-[#FF9F0A]">[P2]</span> Solar Self-Sufficiency — max 3.0 pts</PTitle>
         <PBody>
           <strong>Question:</strong> Is the sun covering your daily energy needs?<br /><br />
-          <code className="font-mono text-[11px]" style={{ color: "#5AC8F5" }}>P2 = min(3.0, solar_coverage_ratio × 3.0)</code><br /><br />
+          <code className="font-mono text-[13px]" style={{ color: "#5AC8F5" }}>P2 = min(3.0, solar_coverage_ratio × 3.0)</code><br /><br />
           100% solar means zero net battery drain. At 60% you earn 1.8 pts. At 20% you earn 0.6 pts.
           Real-time cloud cover from Open-Meteo reduces this score.
         </PBody>
@@ -156,7 +156,7 @@ function StabilitySection() {
         <PTitle><span className="font-mono text-[#30D158]">[P3]</span> Peak Safety Margin — max 2.0 pts</PTitle>
         <PBody>
           <strong>Question:</strong> Am I about to trip my inverter?<br /><br />
-          <code className="font-mono text-[11px]" style={{ color: "#5AC8F5" }}>P3 = min(2.0, max(0, (1 − peak_kW / 5.0)) × 2.0)</code><br /><br />
+          <code className="font-mono text-[13px]" style={{ color: "#5AC8F5" }}>P3 = min(2.0, max(0, (1 − peak_kW / 5.0)) × 2.0)</code><br /><br />
           Reference inverter limit is <strong>5 kW</strong> (Victron/Renogy/Giandel class). At 2.5 kW peak you earn 1.0 pt.
           Running stove + AC + water heater simultaneously is a common cause of P3 = 0.
         </PBody>
@@ -166,7 +166,7 @@ function StabilitySection() {
         <PTitle><span className="font-mono text-[#5AC8F5]">[P4]</span> Battery Reserve Floor — max 1.5 pts</PTitle>
         <PBody>
           <strong>Question:</strong> Does the battery stay above the safe minimum all day?<br /><br />
-          <code className="font-mono text-[11px]" style={{ color: "#5AC8F5" }}>P4 = min(1.5, max(0, (min_SOC% − 20%) / 80%) × 1.5)</code><br /><br />
+          <code className="font-mono text-[13px]" style={{ color: "#5AC8F5" }}>P4 = min(1.5, max(0, (min_SOC% − 20%) / 80%) × 1.5)</code><br /><br />
           LiFePO4 cells suffer irreversible damage below <strong>20% SOC</strong>. The simulation tracks SOC at every 30-second step to find the true minimum.
         </PBody>
       </PillarCard>
@@ -239,8 +239,8 @@ irr_factor   = 1 − (cloud_pct / 100) × 0.92 + 0.05  (from Open-Meteo)`}</Form
           { w: "rainy", f: "0.05", c: "#5E9EFF" },
         ].map(r => (
           <div key={r.w} className="text-center p-3 rounded-[12px] border" style={{ background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
-            <div className="font-mono text-[18px] font-bold mb-1" style={{ color: r.c }}>{r.f}×</div>
-            <div className="text-[10px] capitalize" style={{ color: "var(--l2)" }}>{r.w}</div>
+            <div className="font-mono text-[20px] font-bold mb-1" style={{ color: r.c }}>{r.f}×</div>
+            <div className="text-[12px] capitalize" style={{ color: "var(--l2)" }}>{r.w}</div>
           </div>
         ))}
       </div>
@@ -292,7 +292,7 @@ function SchedSection() {
         <thead>
           <tr>
             {["Schedule", "Description"].map(h => (
-              <th key={h} className="text-left pb-2 text-[9px] tracking-[1.5px] uppercase font-medium border-b px-3"
+              <th key={h} className="text-left pb-2 text-[11px] tracking-[1.5px] uppercase font-medium border-b px-3"
                 style={{ borderColor: "var(--sep)", color: "var(--l3)", padding: "8px 12px" }}>{h}</th>
             ))}
           </tr>
@@ -300,8 +300,8 @@ function SchedSection() {
         <tbody>
           {scheds.map(s => (
             <tr key={s.name} className="border-b" style={{ borderColor: "rgba(255,255,255,.04)" }}>
-              <td className="font-mono text-[11px] px-3 py-2" style={{ color: "#0A84FF" }}>{s.name}</td>
-              <td className="text-[12px] px-3 py-2" style={{ color: "var(--l2)" }}>{s.desc}</td>
+              <td className="font-mono text-[13px] px-3 py-2" style={{ color: "#0A84FF" }}>{s.name}</td>
+              <td className="text-[14px] px-3 py-2" style={{ color: "var(--l2)" }}>{s.desc}</td>
             </tr>
           ))}
         </tbody>
@@ -350,7 +350,7 @@ function GradesSection() {
         <thead>
           <tr>
             {["Grade", "Score", "Label", "What it means"].map(h => (
-              <th key={h} className="text-left text-[9px] tracking-[1.5px] uppercase font-medium border-b px-3"
+              <th key={h} className="text-left text-[11px] tracking-[1.5px] uppercase font-medium border-b px-3"
                 style={{ borderColor: "var(--sep)", color: "var(--l3)", padding: "8px 12px" }}>{h}</th>
             ))}
           </tr>
@@ -359,12 +359,12 @@ function GradesSection() {
           {grades.map(r => (
             <tr key={r.g} className="border-b" style={{ borderColor: "rgba(255,255,255,.04)" }}>
               <td style={{ padding: "10px 12px" }}>
-                <div className="font-mono text-[14px] font-bold w-8 h-8 rounded-[8px] flex items-center justify-center"
+                <div className="font-mono text-[16px] font-bold w-8 h-8 rounded-[8px] flex items-center justify-center"
                   style={{ color: r.c, background: `${r.c}22` }}>{r.g}</div>
               </td>
-              <td className="font-mono text-[12px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.score}</td>
-              <td className="text-[12px] font-semibold px-3" style={{ padding: "10px 12px", color: r.c }}>{r.label}</td>
-              <td className="text-[12px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.desc}</td>
+              <td className="font-mono text-[14px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.score}</td>
+              <td className="text-[14px] font-semibold px-3" style={{ padding: "10px 12px", color: r.c }}>{r.label}</td>
+              <td className="text-[14px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.desc}</td>
             </tr>
           ))}
         </tbody>

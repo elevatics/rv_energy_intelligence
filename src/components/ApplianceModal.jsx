@@ -58,9 +58,9 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
     } finally { setSaving(false); }
   }
 
-  const inp = "w-full px-3 py-2.5 rounded-[12px] text-[13px] outline-none transition-colors";
+  const inp = "w-full px-3 py-2.5 rounded-[12px] text-[15px] outline-none transition-colors";
   const inpStyle = { background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.1)", color: "#fff", fontFamily: "inherit" };
-  const lbl = "text-[10px] tracking-[1px] uppercase mb-1.5 flex items-center gap-1.5";
+  const lbl = "text-[12px] tracking-[1px] uppercase mb-1.5 flex items-center gap-1.5";
 
   return (
     <div
@@ -74,7 +74,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
-          <div className="text-[15px] font-semibold tracking-[.3px]">{isEdit ? "Edit Appliance" : "Add Appliance"}</div>
+          <div className="text-[17px] font-semibold tracking-[.3px]">{isEdit ? "Edit Appliance" : "Add Appliance"}</div>
           <button onClick={onClose}
             className="w-7 h-7 rounded-[8px] flex items-center justify-center text-sm transition-all"
             style={{ background: "rgba(255,255,255,.08)", border: "none", color: "var(--l2)", cursor: "pointer" }}>✕</button>
@@ -89,14 +89,14 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
             { v: form.on ? "ON" : "OFF", l: "State", c: form.on ? "#30D158" : "#FF453A" },
           ].map(i => (
             <div key={i.l} className="text-center">
-              <div className="font-mono text-[17px] font-bold mb-0.5" style={{ color: i.c || "#fff" }}>{i.v}</div>
-              <div className="text-[8px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{i.l}</div>
+              <div className="font-mono text-[19px] font-bold mb-0.5" style={{ color: i.c || "#fff" }}>{i.v}</div>
+              <div className="text-[10px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{i.l}</div>
             </div>
           ))}
         </div>
 
         {/* Form sections */}
-        <div className="text-[9px] tracking-[2px] uppercase font-medium pb-2.5 border-b mb-3.5" style={{ color: "var(--l3)", borderColor: "var(--sep)" }}>
+        <div className="text-[11px] tracking-[2px] uppercase font-medium pb-2.5 border-b mb-3.5" style={{ color: "var(--l3)", borderColor: "var(--sep)" }}>
           Identity
         </div>
 
@@ -117,7 +117,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
 
         {/* Icon picker */}
         <div className="mb-3.5">
-          <div className={lbl} style={{ color: "var(--l3)" }}>Icon <span className="text-[8px] normal-case" style={{ color: "var(--l4)" }}>selected: {form.icon}</span></div>
+          <div className={lbl} style={{ color: "var(--l3)" }}>Icon <span className="text-[10px] normal-case" style={{ color: "var(--l4)" }}>selected: {form.icon}</span></div>
           <div className="flex gap-1.5 flex-wrap mt-1.5">
             {ICONS.map(ic => (
               <button key={ic} onClick={() => set("icon", ic)}
@@ -141,7 +141,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           </div>
         </div>
 
-        <div className="text-[9px] tracking-[2px] uppercase font-medium pb-2.5 border-b mb-3.5 mt-5" style={{ color: "var(--l3)", borderColor: "var(--sep)" }}>
+        <div className="text-[11px] tracking-[2px] uppercase font-medium pb-2.5 border-b mb-3.5 mt-5" style={{ color: "var(--l3)", borderColor: "var(--sep)" }}>
           Electrical Parameters
         </div>
 
@@ -184,8 +184,8 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           </div>
           <div className="flex items-center justify-between pt-5">
             <div>
-              <div className="text-[13px]">Enabled</div>
-              <div className="text-[10px] mt-0.5" style={{ color: "var(--l3)" }}>Include in simulation</div>
+              <div className="text-[15px]">Enabled</div>
+              <div className="text-[12px] mt-0.5" style={{ color: "var(--l3)" }}>Include in simulation</div>
             </div>
             <button onClick={() => set("on", !form.on)}
               className="relative w-[38px] h-5 rounded-full border transition-all"
@@ -202,7 +202,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
 
         {/* Delete confirm */}
         {showDelete && (
-          <div className="mt-2.5 p-3 rounded-[12px] text-[12px]" style={{ background: "rgba(255,69,58,.07)", border: "1px solid rgba(255,69,58,.25)", color: "#FF453A" }}>
+          <div className="mt-2.5 p-3 rounded-[12px] text-[14px]" style={{ background: "rgba(255,69,58,.07)", border: "1px solid rgba(255,69,58,.25)", color: "#FF453A" }}>
             Are you sure? This will permanently delete "{form.name}".
           </div>
         )}
@@ -210,25 +210,25 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
         {/* Footer */}
         <div className="flex gap-2 mt-5 pt-4 border-t" style={{ borderColor: "var(--sep)" }}>
           <button onClick={handleSave} disabled={saving}
-            className="flex-1 py-3 rounded-[12px] text-[13px] font-semibold transition-opacity"
+            className="flex-1 py-3 rounded-[12px] text-[15px] font-semibold transition-opacity"
             style={{ background: "linear-gradient(135deg,#0A84FF,#0055D4)", border: "none", color: "#fff", cursor: "pointer", opacity: saving ? .6 : 1 }}>
             {saving ? "Saving…" : isEdit ? "Save Changes" : "Add Appliance"}
           </button>
           <button onClick={onClose}
-            className="px-4 py-3 rounded-[12px] text-[13px] transition-all"
+            className="px-4 py-3 rounded-[12px] text-[15px] transition-all"
             style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.1)", color: "#fff", cursor: "pointer" }}>
             Cancel
           </button>
           {isEdit && !showDelete && (
             <button onClick={() => setShowDelete(true)}
-              className="px-4 py-3 rounded-[12px] text-[13px] transition-all"
+              className="px-4 py-3 rounded-[12px] text-[15px] transition-all"
               style={{ background: "rgba(255,69,58,.1)", border: "1px solid rgba(255,69,58,.25)", color: "#FF453A", cursor: "pointer" }}>
               Delete
             </button>
           )}
           {isEdit && showDelete && (
             <button onClick={handleDelete} disabled={saving}
-              className="px-4 py-3 rounded-[12px] text-[13px] transition-all"
+              className="px-4 py-3 rounded-[12px] text-[15px] transition-all"
               style={{ background: "rgba(255,69,58,.2)", border: "1px solid rgba(255,69,58,.4)", color: "#FF453A", cursor: "pointer" }}>
               Confirm Delete
             </button>

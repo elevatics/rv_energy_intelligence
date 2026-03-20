@@ -51,7 +51,7 @@ export default function StabilityGauge({ score = 0, grade = "F", label = "Critic
       className="flex flex-col items-center rounded-[22px] border px-5 py-6 shadow-[0_4px_24px_rgba(0,0,0,.55)] min-w-[280px]"
       style={{ background: "var(--glass)", borderColor: "var(--gb)" }}
     >
-      <div className="text-[10px] font-medium tracking-[1.5px] uppercase mb-2.5" style={{ color: "var(--l3)" }}>
+      <div className="text-[12px] font-medium tracking-[1.5px] uppercase mb-2.5" style={{ color: "var(--l3)" }}>
         Stability Score (0 – 10)
       </div>
       <svg viewBox="0 0 260 220" width="260" height="220" style={{ overflow: "visible" }}>
@@ -62,17 +62,17 @@ export default function StabilityGauge({ score = 0, grade = "F", label = "Critic
           style={{ transition: "d 1s cubic-bezier(.34,1.56,.64,1)" }} />
         {/* Score number */}
         <text ref={numRef} x="130" y="128" textAnchor="middle" dominantBaseline="middle"
-          fontFamily="-apple-system,BlinkMacSystemFont,'SF Pro Display'" fontSize="48" fontWeight="700" fill="#fff">
+          fontFamily="Inter,sans-serif" fontSize="50" fontWeight="700" fill="#fff">
           {score}
         </text>
         {/* Grade label */}
         <text ref={gradeRef} x="130" y="158" textAnchor="middle" dominantBaseline="middle"
-          fontFamily="-apple-system,BlinkMacSystemFont,'SF Pro Text'" fontSize="13" fontWeight="500" fill="rgba(235,235,245,.55)">
+          fontFamily="Inter,sans-serif" fontSize="15" fontWeight="500" fill="rgba(235,235,245,.55)">
           Grade {grade} — {label}
         </text>
         {/* 0 / 10 labels */}
-        <text x="32"  y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="10">0</text>
-        <text x="228" y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="10">10</text>
+        <text x="32"  y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="12">0</text>
+        <text x="228" y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="12">10</text>
       </svg>
     </div>
   );
@@ -90,10 +90,10 @@ export function PillarBars({ pillars }) {
     <div className="grid grid-cols-2 gap-2 mt-3.5 w-full">
       {items.map(item => (
         <div key={item.key} className="rounded-[10px] p-2.5 text-center" style={{ background: "rgba(255,255,255,.04)" }}>
-          <div className="font-mono text-[15px] font-bold leading-none mb-0.5" style={{ color: item.color }}>
+          <div className="font-mono text-[17px] font-bold leading-none mb-0.5" style={{ color: item.color }}>
             {pillars[item.key]}
           </div>
-          <div className="text-[8px] tracking-[.8px] uppercase mb-1.5" style={{ color: "var(--l3)" }}>{item.label}</div>
+          <div className="text-[10px] tracking-[.8px] uppercase mb-1.5" style={{ color: "var(--l3)" }}>{item.label}</div>
           <div className="h-[3px] rounded-[2px] overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
             <div
               className="h-full rounded-[2px] transition-all duration-1000"

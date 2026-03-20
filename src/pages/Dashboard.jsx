@@ -21,29 +21,29 @@ export default function Dashboard() {
         <div className="flex flex-col gap-3 h-full">
           <Card className="flex-1">
             <CardLabel>State of Charge</CardLabel>
-            <div className="text-[9px] tracking-[.5px] mb-1" style={{ color: "var(--l3)" }}>kWh remaining</div>
-            <div className="font-mono text-[26px] font-bold leading-none mb-2" style={{ color: socColor }}>{d.soc_kwh}</div>
+            <div className="text-[11px] tracking-[.5px] mb-1" style={{ color: "var(--l3)" }}>kWh remaining</div>
+            <div className="font-mono text-[28px] font-bold leading-none mb-2" style={{ color: socColor }}>{d.soc_kwh}</div>
             <div className="h-[7px] rounded-full overflow-hidden my-2" style={{ background: "rgba(255,255,255,.06)" }}>
               <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${d.soc_pct}%`, background: socColor }} />
             </div>
-            <div className="flex justify-between text-[10px]" style={{ color: "var(--l3)" }}>
+            <div className="flex justify-between text-[12px]" style={{ color: "var(--l3)" }}>
               <span>0 kWh</span>
               <span>{d.soc_pct}%</span>
               <span>{d.bat_cap} kWh</span>
             </div>
-            <div className="mt-2.5 text-[11px]" style={{ color: "var(--l2)" }}>⏱ {d.tte}</div>
+            <div className="mt-2.5 text-[13px]" style={{ color: "var(--l2)" }}>⏱ {d.tte}</div>
           </Card>
 
           <Card className="flex-1">
             <CardLabel>Real-time Power</CardLabel>
-            <div className="text-[9px] mb-1" style={{ color: "var(--l3)" }}>solar generation</div>
-            <div className="font-mono text-[26px] font-bold leading-none mb-2.5" style={{ color: "#FF9F0A" }}>{d.sol_now} kW</div>
+            <div className="text-[11px] mb-1" style={{ color: "var(--l3)" }}>solar generation</div>
+            <div className="font-mono text-[30px] font-bold leading-none mb-2.5" style={{ color: "#FF9F0A" }}>{d.sol_now} kW</div>
             <div className="pt-2.5 border-t flex flex-col gap-1.5" style={{ borderColor: "var(--sep)" }}>
-              <div className="flex justify-between text-[11px]">
+              <div className="flex justify-between text-[15px]">
                 <span style={{ color: "var(--l3)" }}>Load</span>
                 <span className="font-mono font-semibold" style={{ color: "#0A84FF" }}>{d.ld_now} kW</span>
               </div>
-              <div className="flex justify-between text-[11px]">
+              <div className="flex justify-between text-[15px]">
                 <span style={{ color: "var(--l3)" }}>Net</span>
                 <span className="font-mono font-semibold" style={{ color: netColor }}>
                   {d.net_now >= 0 ? "+" : ""}{d.net_now} kW
@@ -61,7 +61,7 @@ export default function Dashboard() {
             <StabilityGauge score={d.si_score} grade={d.si_grade} label={d.si_label} color={d.si_color} scoreColor={d.si_color} />
             <PillarBars pillars={d.si_pillars} />
             {d.si_grade === "F" && (
-              <div className="mt-3 px-3.5 py-2.5 rounded-[12px] text-[11px] text-center leading-relaxed"
+              <div className="mt-3 px-3.5 py-2.5 rounded-[12px] text-[15px] text-center leading-relaxed"
                 style={{ background: "rgba(255,69,58,.1)", border: "1px solid rgba(255,69,58,.3)", color: "#FF453A" }}>
                 <strong>⚠ Grade F — System cannot sustain itself.</strong><br />
                 Connect shore power or shed load immediately.
@@ -74,8 +74,8 @@ export default function Dashboard() {
         <div className="flex flex-col gap-3 h-full">
           <Card className="flex-1">
             <CardLabel>Off-Grid Autonomy</CardLabel>
-            <div className="text-[9px] mb-1" style={{ color: "var(--l3)" }}>days remaining</div>
-            <div className="font-mono text-[26px] font-bold leading-none mb-3" style={{ color: daysColor }}>
+            <div className="text-[13px] mb-1" style={{ color: "var(--l3)" }}>days remaining</div>
+            <div className="font-mono text-[30px] font-bold leading-none mb-3" style={{ color: daysColor }}>
               {d.days_off_grid > 99 ? "∞" : d.days_off_grid}
             </div>
             <div className="flex justify-between mt-3">
@@ -85,8 +85,8 @@ export default function Dashboard() {
                 { v: `${d.sol_coverage_pct}%`, l: "COVERED",   c: "#5AC8F5" },
               ].map((item, i) => (
                 <div key={i} className="flex-1 text-center" style={{ borderLeft: i > 0 ? "1px solid var(--sep)" : "none" }}>
-                  <div className="font-mono text-[14px] font-bold" style={{ color: item.c }}>{item.v}</div>
-                  <div className="text-[9px] mt-0.5" style={{ color: "var(--l3)" }}>{item.l}</div>
+                  <div className="font-mono text-[18px] font-bold" style={{ color: item.c }}>{item.v}</div>
+                  <div className="text-[13px] mt-0.5" style={{ color: "var(--l3)" }}>{item.l}</div>
                 </div>
               ))}
             </div>
@@ -102,7 +102,7 @@ export default function Dashboard() {
                 { l: "Net battery draw",            v: `${d.bat_draw_kwh} kWh`,                   c: "var(--l2)"  },
                 { l: "Ambient temperature",         v: `${d.temperature_c}°C`,                    c: "var(--l2)"  },
               ].map(item => (
-                <div key={item.l} className="flex justify-between text-[11px]">
+                <div key={item.l} className="flex justify-between text-[15px]">
                   <span style={{ color: "var(--l3)" }}>{item.l}</span>
                   <span className="font-mono font-semibold" style={{ color: item.c }}>{item.v}</span>
                 </div>
@@ -127,9 +127,9 @@ export default function Dashboard() {
             style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
             <div className="absolute top-0 left-0 right-0 h-px"
               style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)" }} />
-            <div className="text-[9px] tracking-[.4px] mb-0.5" style={{ color: "var(--l3)" }}>{m.u}</div>
-            <div className="font-mono text-[24px] font-bold leading-none mb-0.5" style={{ color: m.c }}>{m.v}</div>
-            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{m.l}</div>
+            <div className="text-[13px] tracking-[.4px] mb-0.5" style={{ color: "var(--l3)" }}>{m.u}</div>
+            <div className="font-mono text-[28px] font-bold leading-none mb-0.5" style={{ color: m.c }}>{m.v}</div>
+            <div className="text-[13px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{m.l}</div>
           </div>
         ))}
       </div>
@@ -168,14 +168,14 @@ export default function Dashboard() {
             {d.tips.map((t, i) => (
               <div key={i} className="flex items-center gap-2 py-2 border-b last:border-b-0"
                 style={{ borderColor: "rgba(255,255,255,.05)" }}>
-                <span className="font-mono text-[10px] font-semibold min-w-[52px]" style={{ color: "#30D158" }}>{t.gain}</span>
-                <span className="text-[11px]" style={{ color: "var(--l2)" }}>{t.msg}</span>
+                <span className="font-mono text-[14px] font-semibold min-w-[52px]" style={{ color: "#30D158" }}>{t.gain}</span>
+                <span className="text-[15px]" style={{ color: "var(--l2)" }}>{t.msg}</span>
               </div>
             ))}
           </Card>
           <Card padding="p-3" className="flex-1" style={{ flex: 1 }}>
             <CardLabel>Active Config</CardLabel>
-            <div className="flex flex-col gap-1.5 text-[11px]">
+            <div className="flex flex-col gap-1.5 text-[15px]">
               {[
                 { l: "Scenario",   v: d.scenario },
                 { l: "Weather",    v: d.weather },
@@ -210,10 +210,10 @@ function WeatherStrip() {
       {items.map((item, i) => (
         <div key={i} className="flex items-center gap-2.5 px-3.5 py-3 rounded-[16px] border shadow-[0_2px_8px_rgba(0,0,0,.4)]"
           style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
-          <span className="text-[22px] flex-shrink-0">{item.ico}</span>
+          <span className="text-[26px] flex-shrink-0">{item.ico}</span>
           <div>
-            <div className={`font-mono font-bold leading-none mb-0.5 ${item.small ? "text-[12px]" : "text-[17px]"}`}>{item.v}</div>
-            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{item.l}</div>
+            <div className={`font-mono font-bold leading-none mb-0.5 ${item.small ? "text-[16px]" : "text-[21px]"}`}>{item.v}</div>
+            <div className="text-[13px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{item.l}</div>
           </div>
         </div>
       ))}
@@ -229,7 +229,7 @@ function AlertItem({ sev, msg }) {
   };
   const s = styles[sev] || styles.info;
   return (
-    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-[12px] mb-2 text-[12px] leading-relaxed border"
+    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-[12px] mb-2 text-[16px] leading-relaxed border"
       style={{ background: s.bg, borderColor: s.border, color: s.color }}>
       <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[3px]" style={{ background: s.dot }} />
       <span>{msg}</span>
@@ -241,7 +241,7 @@ function Legend({ color, label }) {
   return (
     <div className="flex items-center gap-1">
       <div className="w-2 h-2 rounded-[2px]" style={{ background: color }} />
-      <span className="text-[10px]" style={{ color: "var(--l2)" }}>{label}</span>
+      <span className="text-[14px]" style={{ color: "var(--l2)" }}>{label}</span>
     </div>
   );
 }
