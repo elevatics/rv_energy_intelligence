@@ -81,7 +81,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
         </div>
 
         {/* Computed preview */}
-        <div className="grid grid-cols-4 gap-2 mb-5 p-3.5 rounded-[16px] border" style={{ background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5 p-3.5 rounded-[16px] border" style={{ background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
           {[
             { v: `${computedWatts} W`, l: "Real watts" },
             { v: `${computedEff} W`, l: "Eff watts" },
@@ -100,7 +100,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           Identity
         </div>
 
-        <div className="grid grid-cols-2 gap-3.5 mb-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-3.5">
           <div>
             <div className={lbl} style={{ color: "var(--l3)" }}>Name</div>
             <input className={inp} style={inpStyle} value={form.name} onChange={e => set("name", e.target.value)} placeholder="Appliance name" />
@@ -145,7 +145,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           Electrical Parameters
         </div>
 
-        <div className="grid grid-cols-3 gap-3.5 mb-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-3.5">
           {[
             { k: "voltage_v", l: "Voltage (V)", step: 1, min: 1, max: 480 },
             { k: "current_a", l: "Current (A)", step: 0.01, min: 0.01, max: 200 },
@@ -160,7 +160,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           ))}
         </div>
 
-        <div className="grid grid-cols-3 gap-3.5 mb-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-3.5">
           {[
             { k: "efficiency_pct", l: "Efficiency %", step: 1, min: 1, max: 100 },
             { k: "duty_cycle_pct", l: "Duty Cycle %", step: 1, min: 1, max: 100 },
@@ -175,7 +175,7 @@ export default function ApplianceModal({ appliance, onClose, onSaved, onDeleted 
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-3.5 mb-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-3.5">
           <div>
             <div className={lbl} style={{ color: "var(--l3)" }}>Schedule</div>
             <select className={inp} style={inpStyle} value={form.sched} onChange={e => set("sched", e.target.value)}>

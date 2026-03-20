@@ -135,7 +135,7 @@ export default function Settings() {
           <CardLabel>Solar &amp; Weather Override</CardLabel>
 
           {/* Weather cards grid */}
-          <div className="grid grid-cols-4 gap-2 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
             {WEATHER_OPTS.map(w => (
               <button key={w.id}
                 onClick={() => setSimConfig(c => ({ ...c, weather: w.id }))}
@@ -174,7 +174,7 @@ export default function Settings() {
         </Card>
 
         {/* ── Card 3: Quick Persona (full width) ── */}
-        <div className="col-span-2">
+        <div className="col-span-1 lg:col-span-2">
           <Card>
             <CardLabel>Quick Persona</CardLabel>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">

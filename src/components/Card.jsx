@@ -1,7 +1,7 @@
 export function Card({ children, className = "", padding = "p-5", style = {} }) {
   return (
     <div
-      className={`rounded-2xl border backdrop-blur-xl shadow-lg ${padding} ${className}`}
+      className={`rounded-2xl border backdrop-blur-xl shadow-lg min-w-0 overflow-hidden ${padding} ${className}`}
       style={{ background: "var(--glass)", borderColor: "var(--gb)", ...style }}
     >
       {children}

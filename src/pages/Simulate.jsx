@@ -42,7 +42,7 @@ export default function Simulate() {
   return (
     <div>
       {/* Scenario tabs */}
-      <div className="flex gap-1.5 mb-3.5">
+      <div className="flex gap-1.5 mb-3.5 flex-wrap sm:flex-nowrap">
         {SCENARIOS.map(s => (
           <button key={s.id} onClick={() => simSc(s.id)}
             className="flex-1 py-2.5 rounded-[12px] text-[13px] font-medium text-center border transition-all"
@@ -124,7 +124,8 @@ export default function Simulate() {
         {/* Breakdown */}
         <Card>
           <CardLabel>Appliance Breakdown (Top 8)</CardLabel>
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <div className="overflow-x-auto">
+          <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 320 }}>
             <thead>
               <tr>
                 {[
@@ -159,6 +160,7 @@ export default function Simulate() {
               ))}
             </tbody>
           </table>
+          </div>
         </Card>
       </div>
     </div>

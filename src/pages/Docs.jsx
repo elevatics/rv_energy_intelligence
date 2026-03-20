@@ -29,31 +29,47 @@ export default function Docs() {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[280px_1fr] items-start">
-        {/* Left nav */}
-        <div className="rounded-xl border p-2 lg:sticky lg:top-[72px]"
-          style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
-          {NAV.map(n => (
-            <button key={n.id} onClick={() => setActive(n.id)}
-              className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] text-[14px] text-left border-none transition-all"
-              style={{
-                background: active === n.id ? "rgba(10,132,255,.12)" : "transparent",
-                color: active === n.id ? "#0A84FF" : "var(--l2)",
-                fontWeight: active === n.id ? 500 : 400,
-                cursor: "pointer", fontFamily: "inherit",
-              }}>
-              {n.label}
-              {n.badge && (
-                <span className="ml-auto text-[11px] px-1.5 py-0.5 rounded-full font-mono"
-                  style={{ background: n.badgeColor, color: n.badgeText }}>
-                  {n.badge}
-                </span>
-              )}
-            </button>
-          ))}
+        {/* Left nav — dropdown on mobile, sticky sidebar on desktop */}
+        <div>
+          {/* Mobile: select dropdown */}
+          <div className="lg:hidden mb-1">
+            <select
+              value={active}
+              onChange={e => setActive(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-[12px] text-[14px] outline-none"
+              style={{ background: "var(--glass)", border: "1px solid var(--gb)", color: "var(--l1)", fontFamily: "inherit", cursor: "pointer" }}
+            >
+              {NAV.map(n => (
+                <option key={n.id} value={n.id}>{n.label}{n.badge ? ` · ${n.badge}` : ""}</option>
+              ))}
+            </select>
+          </div>
+          {/* Desktop: sidebar */}
+          <div className="hidden lg:block rounded-xl border p-2 lg:sticky lg:top-[72px]"
+            style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
+            {NAV.map(n => (
+              <button key={n.id} onClick={() => setActive(n.id)}
+                className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-[12px] text-[14px] text-left border-none transition-all"
+                style={{
+                  background: active === n.id ? "rgba(10,132,255,.12)" : "transparent",
+                  color: active === n.id ? "#0A84FF" : "var(--l2)",
+                  fontWeight: active === n.id ? 500 : 400,
+                  cursor: "pointer", fontFamily: "inherit",
+                }}>
+                {n.label}
+                {n.badge && (
+                  <span className="ml-auto text-[11px] px-1.5 py-0.5 rounded-full font-mono"
+                    style={{ background: n.badgeColor, color: n.badgeText }}>
+                    {n.badge}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Content */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 min-w-0">
           {active === "si"     && <StabilitySection />}
           {active === "elec"   && <ElecSection />}
           {active === "solar"  && <SolarSection />}
@@ -70,7 +86,7 @@ export default function Docs() {
 /* ── Shared helpers ── */
 function DocSection({ children }) {
   return (
-    <div className="rounded-[22px] border p-6" style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
+    <div className="rounded-[22px] border p-4 sm:p-6 min-w-0 overflow-hidden" style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
       {children}
     </div>
   );
@@ -83,9 +99,9 @@ function SecSub({ children }) {
 }
 function FormulaBox({ children }) {
   return (
-    <div className="rounded-[12px] border p-4 my-3 font-mono text-[14px] leading-loose overflow-x-auto"
+    <div className="rounded-[12px] border my-3 overflow-x-auto"
       style={{ background: "rgba(255,255,255,.04)", borderColor: "rgba(255,255,255,.08)", color: "#5AC8F5" }}>
-      <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{children}</pre>
+      <pre className="font-mono text-[13px] leading-loose p-4" style={{ margin: 0, whiteSpace: "pre", minWidth: "max-content" }}>{children}</pre>
     </div>
   );
 }
@@ -104,12 +120,12 @@ function PBody({ children }) {
 }
 function ElecRow({ label, desc }) {
   return (
-    <div className="grid mb-2" style={{ gridTemplateColumns: "180px 1fr" }}>
-      <div className="font-mono text-[13px] px-3 py-2 rounded-l-[8px] border"
+    <div className="flex flex-col sm:grid mb-2" style={{ gridTemplateColumns: "clamp(120px,32%,180px) 1fr" }}>
+      <div className="font-mono text-[13px] px-3 py-2 sm:rounded-l-[8px] sm:rounded-r-none rounded-t-[8px] border sm:border-r-0"
         style={{ color: "#5AC8F5", background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
         {label}
       </div>
-      <div className="text-[13px] px-3 py-2 rounded-r-[8px] border border-l-0 leading-relaxed"
+      <div className="text-[13px] px-3 py-2 sm:rounded-r-[8px] sm:rounded-l-none rounded-b-[8px] border sm:border-t border-t-0 leading-relaxed"
         style={{ color: "var(--l2)", background: "rgba(255,255,255,.02)", borderColor: "var(--sep)" }}>
         {desc}
       </div>
@@ -231,7 +247,7 @@ solar_kW(step) = daily_target_kWh × solar_curve(h) / integral
 4. Daily target with corrections
 daily_target = panel_kWh × weather_factor × scenario_factor × irr_factor
 irr_factor   = 1 − (cloud_pct / 100) × 0.92 + 0.05  (from Open-Meteo)`}</FormulaBox>
-      <div className="grid grid-cols-4 gap-2 mt-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3">
         {[
           { w: "sunny", f: "1.00", c: "#FFD60A" },
           { w: "partly", f: "0.60", c: "#FF9F0A" },
@@ -288,6 +304,17 @@ function SchedSection() {
     <DocSection>
       <SecTitle>🕐 Load Schedules — 9 Types</SecTitle>
       <SecSub>The simulation runs 2880 steps at 30-second resolution. Each appliance has a schedule that determines when it draws power. This catches sub-hour events invisible to hourly models.</SecSub>
+      {/* Mobile cards */}
+      <div className="sm:hidden flex flex-col gap-2 mt-3">
+        {scheds.map(s => (
+          <div key={s.name} className="rounded-[12px] border px-3.5 py-3" style={{ background: "rgba(255,255,255,.03)", borderColor: "var(--sep)" }}>
+            <div className="font-mono text-[13px] font-semibold mb-1" style={{ color: "#0A84FF" }}>{s.name}</div>
+            <div className="text-[13px] leading-relaxed" style={{ color: "var(--l2)" }}>{s.desc}</div>
+          </div>
+        ))}
+      </div>
+      {/* Desktop table */}
+      <div className="hidden sm:block overflow-x-auto">
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 12 }}>
         <thead>
           <tr>
@@ -300,12 +327,13 @@ function SchedSection() {
         <tbody>
           {scheds.map(s => (
             <tr key={s.name} className="border-b" style={{ borderColor: "rgba(255,255,255,.04)" }}>
-              <td className="font-mono text-[13px] px-3 py-2" style={{ color: "#0A84FF" }}>{s.name}</td>
+              <td className="font-mono text-[13px] px-3 py-2" style={{ color: "#0A84FF", whiteSpace: "nowrap" }}>{s.name}</td>
               <td className="text-[14px] px-3 py-2" style={{ color: "var(--l2)" }}>{s.desc}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </DocSection>
   );
 }
@@ -346,6 +374,24 @@ function GradesSection() {
     <DocSection>
       <SecTitle>🏅 Grade Reference</SecTitle>
       <SecSub>The stability score maps to a letter grade. Each grade represents a distinct operational state with specific recommendations.</SecSub>
+      {/* Mobile cards */}
+      <div className="sm:hidden flex flex-col gap-2 mt-3">
+        {grades.map(r => (
+          <div key={r.g} className="flex items-start gap-3 rounded-[14px] border px-4 py-3" style={{ background: "rgba(255,255,255,.03)", borderColor: "var(--sep)", borderLeft: `3px solid ${r.c}` }}>
+            <div className="font-mono text-[16px] font-bold w-9 h-9 rounded-[8px] flex items-center justify-center flex-shrink-0"
+              style={{ color: r.c, background: `${r.c}22` }}>{r.g}</div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-semibold text-[14px]" style={{ color: r.c }}>{r.label}</span>
+                <span className="font-mono text-[12px]" style={{ color: "var(--l3)" }}>{r.score}</span>
+              </div>
+              <div className="text-[13px] mt-0.5" style={{ color: "var(--l2)" }}>{r.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Desktop table */}
+      <div className="hidden sm:block overflow-x-auto">
       <table style={{ width: "100%", borderCollapse: "collapse", marginTop: 12 }}>
         <thead>
           <tr>
@@ -362,13 +408,14 @@ function GradesSection() {
                 <div className="font-mono text-[16px] font-bold w-8 h-8 rounded-[8px] flex items-center justify-center"
                   style={{ color: r.c, background: `${r.c}22` }}>{r.g}</div>
               </td>
-              <td className="font-mono text-[14px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.score}</td>
-              <td className="text-[14px] font-semibold px-3" style={{ padding: "10px 12px", color: r.c }}>{r.label}</td>
+              <td className="font-mono text-[14px] px-3" style={{ padding: "10px 12px", color: "var(--l2)", whiteSpace: "nowrap" }}>{r.score}</td>
+              <td className="text-[14px] font-semibold px-3" style={{ padding: "10px 12px", color: r.c, whiteSpace: "nowrap" }}>{r.label}</td>
               <td className="text-[14px] px-3" style={{ padding: "10px 12px", color: "var(--l2)" }}>{r.desc}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
     </DocSection>
   );
 }

@@ -17,25 +17,24 @@ export default function StatusBar() {
 
   return (
     <div
-      className="h-10 flex items-center gap-4 px-4 sm:px-6 text-[12px] font-mono border-b"
+      className="h-10 flex items-center gap-3 px-4 sm:px-6 text-[12px] font-mono border-b overflow-hidden"
       style={{ background: "var(--card)", borderColor: "var(--sep)", color: "var(--l3)" }}
     >
-      {/* <div className="w-[5px] h-[5px] rounded-full bg-green breathe flex-shrink-0" /> */}
-      <span>ELEVATICS RV ENERGY INTELLIGENCE</span>
-      <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
-      <span>Sim:{simData ? `${simData.ms}ms` : "v2.1 ready"}</span>
-      <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
-      <span>{clock}</span>
+      <span className="hidden sm:inline truncate">ELEVATICS RV ENERGY INTELLIGENCE</span>
+      <div className="hidden sm:block w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
+      <span className="hidden sm:inline flex-shrink-0">Sim:{simData ? `${simData.ms}ms` : "v2.1 ready"}</span>
+      <div className="hidden sm:block w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
+      <span className="flex-shrink-0">{clock}</span>
       <div className="w-px h-3 flex-shrink-0" style={{ background: "var(--sep)" }} />
       <span
-        className="px-2 py-0.5 rounded-full text-[11px] tracking-[.5px] border"
+        className="px-2 py-0.5 rounded-full text-[11px] tracking-[.5px] border flex-shrink-0"
         style={
           weather
             ? { borderColor: "rgba(48,209,88,.35)", color: "#30D158" }
             : { borderColor: "var(--sep)", color: "var(--l3)" }
         }
       >
-        {weather ? `● ${weather.wx_label || "LIVE"}` : "● ACQUIRING LOCATION"}
+        {weather ? `● ${weather.wx_label || "LIVE"}` : "● LOCATING"}
       </span>
     </div>
   );

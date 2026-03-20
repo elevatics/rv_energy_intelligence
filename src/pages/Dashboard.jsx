@@ -102,9 +102,9 @@ export default function Dashboard() {
                 { l: "Net battery draw",            v: `${d.bat_draw_kwh} kWh`,                   c: "var(--l2)"  },
                 { l: "Ambient temperature",         v: `${d.temperature_c}°C`,                    c: "var(--l2)"  },
               ].map(item => (
-                <div key={item.l} className="flex justify-between text-[15px]">
-                  <span style={{ color: "var(--l3)" }}>{item.l}</span>
-                  <span className="font-mono font-semibold" style={{ color: item.c }}>{item.v}</span>
+                <div key={item.l} className="flex justify-between gap-2 text-[14px]">
+                  <span className="truncate" style={{ color: "var(--l3)" }}>{item.l}</span>
+                  <span className="font-mono font-semibold flex-shrink-0" style={{ color: item.c }}>{item.v}</span>
                 </div>
               ))}
             </div>
@@ -136,7 +136,7 @@ export default function Dashboard() {
 
       {/* ── Charts + Sidebar ── */}
       <div className="grid gap-4 sm:gap-5 items-stretch lg:grid-cols-[1fr_340px]">
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 min-w-0">
           <Card>
             <CardLabel>24-Hour Power Profile</CardLabel>
             <div className="flex gap-4 mb-2.5">
@@ -147,16 +147,16 @@ export default function Dashboard() {
           </Card>
           <Card>
             <CardLabel>Battery SOC Prediction (24h)</CardLabel>
-            <SocChart socHourly={d.soc_hourly} height={115} />
+            <SocChart socHourly={d.soc_hourly} height={165} />
           </Card>
           <Card>
             <CardLabel>Net Power Balance · Solar − Load</CardLabel>
-            <NetChart netHourly={d.net_hourly} height={95} />
+            <NetChart netHourly={d.net_hourly} height={165} />
           </Card>
         </div>
 
         {/* Sidebar */}
-        <div className="flex flex-col gap-3" style={{ minWidth: 0, alignSelf: "stretch" }}>
+        <div className="flex flex-col gap-3 min-w-0" style={{ alignSelf: "stretch" }}>
           <Card padding="p-4">
             <CardLabel>System Alerts</CardLabel>
             {d.alerts.map((a, i) => (
@@ -183,9 +183,9 @@ export default function Dashboard() {
                 { l: "Experience", v: d.experience },
                 { l: "Sim timing", v: `${d.ms}ms` },
               ].map(item => (
-                <div key={item.l} className="flex justify-between">
+                <div key={item.l} className="flex justify-between gap-2 text-[14px]">
                   <span style={{ color: "var(--l3)" }}>{item.l}</span>
-                  <span className="font-mono capitalize">{item.v}</span>
+                  <span className="font-mono capitalize flex-shrink-0">{item.v}</span>
                 </div>
               ))}
             </div>
@@ -278,10 +278,9 @@ function AlertItem({ sev, msg }) {
   };
   const s = styles[sev] || styles.info;
   return (
-    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-[12px] mb-2 text-[16px] leading-relaxed border"
+    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-[12px] mb-2 text-[14px] leading-relaxed border min-w-0"
       style={{ background: s.bg, borderColor: s.border, color: s.color }}>
-      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[3px]" style={{ background: s.dot }} />
-      <span>{msg}</span>
+      <span className="break-words min-w-0">{msg}</span>
     </div>
   );
 }

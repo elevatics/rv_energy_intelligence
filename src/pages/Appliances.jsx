@@ -101,8 +101,62 @@ export default function Appliances() {
         ))}
       </div>
 
-      {/* Table */}
-      <div className="rounded-2xl border overflow-x-auto shadow-lg"
+      {/* Mobile cards (hidden on md+) */}
+      <div className="md:hidden flex flex-col gap-3">
+        {filtered.length === 0 && (
+          <div className="text-center py-12 text-[15px]" style={{ color: "var(--l3)" }}>No appliances in this category.</div>
+        )}
+        {filtered.map(a => {
+          const dailyKwh = ((a.effective_watts / 1000) * (a.duty_cycle_pct / 100) * a.hrs).toFixed(3);
+          const maxKwh   = Math.max(...appliances.filter(x => x.on).map(x => (x.effective_watts / 1000) * (x.duty_cycle_pct / 100) * x.hrs), 1);
+          const share    = parseFloat(dailyKwh) / maxKwh;
+          const isCrit   = a.effective_watts > 1500;
+          return (
+            <div key={a.id} className="rounded-[16px] border px-4 py-3.5"
+              style={{ background: "var(--glass)", borderColor: "var(--gb)", borderLeft: a.on ? "3px solid rgba(10,132,255,.5)" : "3px solid transparent", opacity: a.on ? 1 : 0.55 }}>
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-[32px] h-[32px] rounded-[9px] flex items-center justify-center text-[14px] flex-shrink-0"
+                    style={{ background: `${a.clr}22` }}>{a.icon}</div>
+                  <div className="min-w-0">
+                    <div className="text-[15px] font-semibold truncate">{a.name}</div>
+                    <div className="text-[11px] capitalize" style={{ color: "var(--l3)" }}>{a.cat}</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0">
+                  {isCrit && <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ background: "rgba(255,69,58,.12)", color: "#FF453A", border: "1px solid rgba(255,69,58,.25)" }}>⚡ High</span>}
+                  {!isCrit && a.is_custom && <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ background: "rgba(191,90,242,.12)", color: "#BF5AF2", border: "1px solid rgba(191,90,242,.2)" }}>Custom</span>}
+                  <label className="relative w-[38px] h-5 flex-shrink-0 cursor-pointer">
+                    <input type="checkbox" checked={a.on} disabled={togglingId === a.id} onChange={() => handleToggle(a)} className="opacity-0 w-0 h-0 absolute" />
+                    <span className="absolute inset-0 rounded-full border transition-all" style={{ background: a.on ? "rgba(10,132,255,.3)" : "rgba(255,255,255,.1)", borderColor: a.on ? "#0A84FF" : "rgba(255,255,255,.15)" }}>
+                      <span className="absolute w-3.5 h-3.5 rounded-full top-[2px] transition-all" style={{ left: a.on ? "20px" : "2px", background: a.on ? "#0A84FF" : "rgba(255,255,255,.5)" }} />
+                    </span>
+                  </label>
+                  <button onClick={() => setModal(a)} className="w-[28px] h-[28px] rounded-[8px] flex items-center justify-center text-[13px] border"
+                    style={{ border: "1px solid rgba(255,255,255,.1)", background: "transparent", color: "var(--l2)", cursor: "pointer" }} title="Edit">✏️</button>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-2 mb-2.5 text-[12px]">
+                {[["Voltage", `${a.voltage_v}V`], ["Current", `${a.current_a.toFixed(1)}A`], ["Real W", `${Math.round(a.effective_watts)}W`]].map(([l, v]) => (
+                  <div key={l} className="rounded-[10px] px-2.5 py-2 text-center" style={{ background: "rgba(255,255,255,.04)" }}>
+                    <div className="font-mono font-semibold" style={{ color: a.clr }}>{v}</div>
+                    <div className="text-[10px] mt-0.5" style={{ color: "var(--l3)" }}>{l}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="flex-1 h-[3px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
+                  <div className="h-full rounded-full" style={{ width: `${Math.min(share * 100, 100)}%`, background: a.clr }} />
+                </div>
+                <span className="font-mono text-[11px] flex-shrink-0" style={{ color: "var(--l3)" }}>{dailyKwh} kWh/day</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop table (hidden on mobile) */}
+      <div className="hidden md:block rounded-2xl border overflow-x-auto shadow-lg"
         style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
         {/* Header */}
         <div
