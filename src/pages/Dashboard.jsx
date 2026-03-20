@@ -1,0 +1,247 @@
+import { useApp } from "../context/AppContext";
+import { Card, CardLabel } from "../components/Card";
+import StabilityGauge, { PillarBars } from "../components/StabilityGauge";
+import { PowerChart, SocChart, NetChart } from "../components/Charts";
+
+export default function Dashboard() {
+  const { simData } = useApp();
+  const d = simData;
+  if (!d) return <div className="p-10 text-center" style={{ color: "var(--l3)" }}>Loading…</div>;
+
+  const socColor = d.soc_pct > 50 ? "#30D158" : d.soc_pct > 20 ? "#FF9F0A" : "#FF453A";
+  const daysColor = d.days_off_grid > 3 ? "#30D158" : d.days_off_grid > 1 ? "#FF9F0A" : "#FF453A";
+  const netColor  = d.net_now >= 0 ? "#30D158" : "#FF453A";
+
+  return (
+    <div>
+      {/* ── Hero row: Battery | Gauge | Autonomy ── */}
+      <div className="grid gap-3 mb-3 items-stretch" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+
+        {/* Left: Battery + Real-time — stretch to fill row height */}
+        <div className="flex flex-col gap-3 h-full">
+          <Card className="flex-1">
+            <CardLabel>State of Charge</CardLabel>
+            <div className="text-[9px] tracking-[.5px] mb-1" style={{ color: "var(--l3)" }}>kWh remaining</div>
+            <div className="font-mono text-[26px] font-bold leading-none mb-2" style={{ color: socColor }}>{d.soc_kwh}</div>
+            <div className="h-[7px] rounded-full overflow-hidden my-2" style={{ background: "rgba(255,255,255,.06)" }}>
+              <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${d.soc_pct}%`, background: socColor }} />
+            </div>
+            <div className="flex justify-between text-[10px]" style={{ color: "var(--l3)" }}>
+              <span>0 kWh</span>
+              <span>{d.soc_pct}%</span>
+              <span>{d.bat_cap} kWh</span>
+            </div>
+            <div className="mt-2.5 text-[11px]" style={{ color: "var(--l2)" }}>⏱ {d.tte}</div>
+          </Card>
+
+          <Card className="flex-1">
+            <CardLabel>Real-time Power</CardLabel>
+            <div className="text-[9px] mb-1" style={{ color: "var(--l3)" }}>solar generation</div>
+            <div className="font-mono text-[26px] font-bold leading-none mb-2.5" style={{ color: "#FF9F0A" }}>{d.sol_now} kW</div>
+            <div className="pt-2.5 border-t flex flex-col gap-1.5" style={{ borderColor: "var(--sep)" }}>
+              <div className="flex justify-between text-[11px]">
+                <span style={{ color: "var(--l3)" }}>Load</span>
+                <span className="font-mono font-semibold" style={{ color: "#0A84FF" }}>{d.ld_now} kW</span>
+              </div>
+              <div className="flex justify-between text-[11px]">
+                <span style={{ color: "var(--l3)" }}>Net</span>
+                <span className="font-mono font-semibold" style={{ color: netColor }}>
+                  {d.net_now >= 0 ? "+" : ""}{d.net_now} kW
+                </span>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Center: Stability Gauge — full height */}
+        <div className="flex flex-col h-full">
+          <div className="flex flex-col items-center rounded-[22px] border px-5 pt-6 pb-5 h-full shadow-[0_4px_24px_rgba(0,0,0,.55)]"
+            style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
+            <CardLabel>Stability Score (0 – 10)</CardLabel>
+            <StabilityGauge score={d.si_score} grade={d.si_grade} label={d.si_label} color={d.si_color} scoreColor={d.si_color} />
+            <PillarBars pillars={d.si_pillars} />
+            {d.si_grade === "F" && (
+              <div className="mt-3 px-3.5 py-2.5 rounded-[12px] text-[11px] text-center leading-relaxed"
+                style={{ background: "rgba(255,69,58,.1)", border: "1px solid rgba(255,69,58,.3)", color: "#FF453A" }}>
+                <strong>⚠ Grade F — System cannot sustain itself.</strong><br />
+                Connect shore power or shed load immediately.
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right: Autonomy + Analytics — stretch to fill row height */}
+        <div className="flex flex-col gap-3 h-full">
+          <Card className="flex-1">
+            <CardLabel>Off-Grid Autonomy</CardLabel>
+            <div className="text-[9px] mb-1" style={{ color: "var(--l3)" }}>days remaining</div>
+            <div className="font-mono text-[26px] font-bold leading-none mb-3" style={{ color: daysColor }}>
+              {d.days_off_grid > 99 ? "∞" : d.days_off_grid}
+            </div>
+            <div className="flex justify-between mt-3">
+              {[
+                { v: d.total_sol_kwh,          l: "SOLAR kWh", c: "#FF9F0A" },
+                { v: d.total_load_kwh,         l: "LOAD kWh",  c: "#0A84FF" },
+                { v: `${d.sol_coverage_pct}%`, l: "COVERED",   c: "#5AC8F5" },
+              ].map((item, i) => (
+                <div key={i} className="flex-1 text-center" style={{ borderLeft: i > 0 ? "1px solid var(--sep)" : "none" }}>
+                  <div className="font-mono text-[14px] font-bold" style={{ color: item.c }}>{item.v}</div>
+                  <div className="text-[9px] mt-0.5" style={{ color: "var(--l3)" }}>{item.l}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="flex-1">
+            <CardLabel>Battery Analytics</CardLabel>
+            <div className="flex flex-col gap-2">
+              {[
+                { l: "Temp capacity factor",        v: `${Math.round(d.bat_temp_factor * 100)}%`, c: "#5AC8F5"    },
+                { l: `Min SOC (@ ${d.min_soc_h}:00)`, v: `${d.min_soc}%`,                        c: "var(--l2)"  },
+                { l: "Peak load",                   v: `${d.peak_load_kw} kW`,                    c: "var(--l2)"  },
+                { l: "Net battery draw",            v: `${d.bat_draw_kwh} kWh`,                   c: "var(--l2)"  },
+                { l: "Ambient temperature",         v: `${d.temperature_c}°C`,                    c: "var(--l2)"  },
+              ].map(item => (
+                <div key={item.l} className="flex justify-between text-[11px]">
+                  <span style={{ color: "var(--l3)" }}>{item.l}</span>
+                  <span className="font-mono font-semibold" style={{ color: item.c }}>{item.v}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {/* ── Weather Strip ── */}
+      <WeatherStrip />
+
+      {/* ── Metric Cards ── */}
+      <div className="grid grid-cols-4 gap-2.5 mb-3">
+        {[
+          { u: "kW", v: d.sol_now, l: "Solar now", c: "#FF9F0A" },
+          { u: "kW", v: d.ld_now, l: "Load now", c: "#0A84FF" },
+          { u: "net kW", v: `${d.net_now >= 0 ? "+" : ""}${d.net_now}`, l: d.net_now >= 0 ? "Charging" : "Drawing", c: netColor },
+          { u: "/ 10", v: d.si_score, l: "Stability Score", c: d.si_color },
+        ].map(m => (
+          <div key={m.l} className="relative overflow-hidden text-center rounded-[16px] border py-4 shadow-[0_2px_8px_rgba(0,0,0,.4)]"
+            style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
+            <div className="absolute top-0 left-0 right-0 h-px"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent)" }} />
+            <div className="text-[9px] tracking-[.4px] mb-0.5" style={{ color: "var(--l3)" }}>{m.u}</div>
+            <div className="font-mono text-[24px] font-bold leading-none mb-0.5" style={{ color: m.c }}>{m.v}</div>
+            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{m.l}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Charts + Sidebar ── */}
+      <div className="grid gap-3 items-stretch" style={{ gridTemplateColumns: "1fr 340px" }}>
+        <div className="flex flex-col gap-3">
+          <Card>
+            <CardLabel>24-Hour Power Profile</CardLabel>
+            <div className="flex gap-4 mb-2.5">
+              <Legend color="#FF9F0A" label="Solar" />
+              <Legend color="#0A84FF" label="Load" />
+            </div>
+            <PowerChart solHourly={d.sol_hourly} loadHourly={d.load_hourly} height={165} />
+          </Card>
+          <Card>
+            <CardLabel>Battery SOC Prediction (24h)</CardLabel>
+            <SocChart socHourly={d.soc_hourly} height={115} />
+          </Card>
+          <Card>
+            <CardLabel>Net Power Balance · Solar − Load</CardLabel>
+            <NetChart netHourly={d.net_hourly} height={95} />
+          </Card>
+        </div>
+
+        {/* Sidebar */}
+        <div className="flex flex-col gap-3" style={{ minWidth: 0, alignSelf: "stretch" }}>
+          <Card padding="p-4">
+            <CardLabel>System Alerts</CardLabel>
+            {d.alerts.map((a, i) => (
+              <AlertItem key={i} sev={a.sev} msg={a.msg} />
+            ))}
+          </Card>
+          <Card padding="p-4">
+            <CardLabel>Optimization Recommendations</CardLabel>
+            {d.tips.map((t, i) => (
+              <div key={i} className="flex items-center gap-2 py-2 border-b last:border-b-0"
+                style={{ borderColor: "rgba(255,255,255,.05)" }}>
+                <span className="font-mono text-[10px] font-semibold min-w-[52px]" style={{ color: "#30D158" }}>{t.gain}</span>
+                <span className="text-[11px]" style={{ color: "var(--l2)" }}>{t.msg}</span>
+              </div>
+            ))}
+          </Card>
+          <Card padding="p-3" className="flex-1" style={{ flex: 1 }}>
+            <CardLabel>Active Config</CardLabel>
+            <div className="flex flex-col gap-1.5 text-[11px]">
+              {[
+                { l: "Scenario",   v: d.scenario },
+                { l: "Weather",    v: d.weather },
+                { l: "Occupants",  v: d.occupants },
+                { l: "Experience", v: d.experience },
+                { l: "Sim timing", v: `${d.ms}ms` },
+              ].map(item => (
+                <div key={item.l} className="flex justify-between">
+                  <span style={{ color: "var(--l3)" }}>{item.l}</span>
+                  <span className="font-mono capitalize">{item.v}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function WeatherStrip() {
+  const { weather } = useApp();
+  const items = [
+    { ico: weather?.wx_icon || "🌡", v: weather ? `${weather.temp_c?.toFixed(1)}°C` : "—°C", l: "Temperature" },
+    { ico: "☁️", v: weather ? `${weather.cloud_pct?.toFixed(0)}%` : "—%", l: "Cloud Cover" },
+    { ico: "💨", v: weather ? `${weather.wind_kmh?.toFixed(0)} km/h` : "— km/h", l: "Wind Speed" },
+    { ico: "☀️", v: weather ? `${weather.irr_factor?.toFixed(2)}×` : "—×", l: "Irr. Factor" },
+    { ico: "📍", v: weather?.city || "Locating…", l: weather ? `Live · ${weather.wx_label || ""}` : "Real-time weather", small: true },
+  ];
+  return (
+    <div className="grid grid-cols-5 gap-2.5 mb-3">
+      {items.map((item, i) => (
+        <div key={i} className="flex items-center gap-2.5 px-3.5 py-3 rounded-[16px] border shadow-[0_2px_8px_rgba(0,0,0,.4)]"
+          style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
+          <span className="text-[22px] flex-shrink-0">{item.ico}</span>
+          <div>
+            <div className={`font-mono font-bold leading-none mb-0.5 ${item.small ? "text-[12px]" : "text-[17px]"}`}>{item.v}</div>
+            <div className="text-[9px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{item.l}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AlertItem({ sev, msg }) {
+  const styles = {
+    info:     { bg: "rgba(10,132,255,.08)", border: "rgba(10,132,255,.2)", color: "#5AC8F5", dot: "#0A84FF" },
+    warning:  { bg: "rgba(255,159,10,.08)", border: "rgba(255,159,10,.25)", color: "#FF9F0A", dot: "#FF9F0A" },
+    critical: { bg: "rgba(255,69,58,.08)",  border: "rgba(255,69,58,.25)",  color: "#FF453A", dot: "#FF453A" },
+  };
+  const s = styles[sev] || styles.info;
+  return (
+    <div className="flex items-start gap-2.5 px-3.5 py-2.5 rounded-[12px] mb-2 text-[12px] leading-relaxed border"
+      style={{ background: s.bg, borderColor: s.border, color: s.color }}>
+      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-[3px]" style={{ background: s.dot }} />
+      <span>{msg}</span>
+    </div>
+  );
+}
+
+function Legend({ color, label }) {
+  return (
+    <div className="flex items-center gap-1">
+      <div className="w-2 h-2 rounded-[2px]" style={{ background: color }} />
+      <span className="text-[10px]" style={{ color: "var(--l2)" }}>{label}</span>
+    </div>
+  );
+}
