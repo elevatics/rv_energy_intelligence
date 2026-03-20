@@ -62,17 +62,17 @@ export default function StabilityGauge({ score = 0, grade = "F", label = "Critic
           style={{ transition: "d 1s cubic-bezier(.34,1.56,.64,1)" }} />
         {/* Score number */}
         <text ref={numRef} x="130" y="128" textAnchor="middle" dominantBaseline="middle"
-          fontFamily="Inter,sans-serif" fontSize="50" fontWeight="700" fill="#fff">
+          fontFamily="Plus Jakarta Sans,sans-serif" fontSize="50" fontWeight="700" fill="#fff">
           {score}
         </text>
         {/* Grade label */}
         <text ref={gradeRef} x="130" y="158" textAnchor="middle" dominantBaseline="middle"
-          fontFamily="Inter,sans-serif" fontSize="15" fontWeight="500" fill="rgba(235,235,245,.55)">
+          fontFamily="Plus Jakarta Sans,sans-serif" fontSize="15" fontWeight="500" fill="rgba(235,235,245,.55)">
           Grade {grade} — {label}
         </text>
         {/* 0 / 10 labels */}
-        <text x="32"  y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="12">0</text>
-        <text x="228" y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="SF Mono,Menlo,monospace" fontSize="12">10</text>
+        <text x="32"  y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="JetBrains Mono,monospace" fontSize="12">0</text>
+        <text x="228" y="196" textAnchor="middle" fill="rgba(235,235,245,.3)" fontFamily="JetBrains Mono,monospace" fontSize="12">10</text>
       </svg>
     </div>
   );

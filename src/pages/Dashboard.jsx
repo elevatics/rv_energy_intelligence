@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <div>
       {/* ── Hero row: Battery | Gauge | Autonomy ── */}
-      <div className="grid gap-3 mb-3 items-stretch" style={{ gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <div className="grid gap-4 sm:gap-5 mb-5 items-stretch grid-cols-1 lg:grid-cols-3">
 
         {/* Left: Battery + Real-time — stretch to fill row height */}
         <div className="flex flex-col gap-3 h-full">
@@ -116,7 +116,7 @@ export default function Dashboard() {
       <WeatherStrip />
 
       {/* ── Metric Cards ── */}
-      <div className="grid grid-cols-4 gap-2.5 mb-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
         {[
           { u: "kW", v: d.sol_now, l: "Solar now", c: "#FF9F0A" },
           { u: "kW", v: d.ld_now, l: "Load now", c: "#0A84FF" },
@@ -135,7 +135,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Charts + Sidebar ── */}
-      <div className="grid gap-3 items-stretch" style={{ gridTemplateColumns: "1fr 340px" }}>
+      <div className="grid gap-4 sm:gap-5 items-stretch lg:grid-cols-[1fr_340px]">
         <div className="flex flex-col gap-3">
           <Card>
             <CardLabel>24-Hour Power Profile</CardLabel>
@@ -198,25 +198,74 @@ export default function Dashboard() {
 
 function WeatherStrip() {
   const { weather } = useApp();
-  const items = [
-    { ico: weather?.wx_icon || "🌡", v: weather ? `${weather.temp_c?.toFixed(1)}°C` : "—°C", l: "Temperature" },
-    { ico: "☁️", v: weather ? `${weather.cloud_pct?.toFixed(0)}%` : "—%", l: "Cloud Cover" },
-    { ico: "💨", v: weather ? `${weather.wind_kmh?.toFixed(0)} km/h` : "— km/h", l: "Wind Speed" },
-    { ico: "☀️", v: weather ? `${weather.irr_factor?.toFixed(2)}×` : "—×", l: "Irr. Factor" },
-    { ico: "📍", v: weather?.city || "Locating…", l: weather ? `Live · ${weather.wx_label || ""}` : "Real-time weather", small: true },
+
+  const stats = [
+    { ico: "🌡", v: weather ? `${weather.temp_c?.toFixed(1)}°C`     : "—°C",    l: "Temperature" },
+    { ico: "☁️", v: weather ? `${weather.cloud_pct?.toFixed(0)}%`   : "—%",     l: "Cloud Cover" },
+    { ico: "💨", v: weather ? `${weather.wind_kmh?.toFixed(0)} km/h` : "— km/h", l: "Wind Speed"  },
+    { ico: "☀️", v: weather ? `${weather.irr_factor?.toFixed(2)}×`  : "—×",     l: "Irr. Factor" },
   ];
+
   return (
-    <div className="grid grid-cols-5 gap-2.5 mb-3">
-      {items.map((item, i) => (
-        <div key={i} className="flex items-center gap-2.5 px-3.5 py-3 rounded-[16px] border shadow-[0_2px_8px_rgba(0,0,0,.4)]"
-          style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
-          <span className="text-[26px] flex-shrink-0">{item.ico}</span>
+    <div
+      className="relative overflow-hidden rounded-[20px] border mb-5 shadow-[0_4px_24px_rgba(0,0,0,.5)]"
+      style={{ background: "var(--glass)", borderColor: "var(--gb)" }}
+    >
+      {/* subtle top-edge glow */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg,transparent,rgba(255,159,10,.25),rgba(90,200,245,.2),transparent)" }} />
+
+      <div className="flex flex-col lg:flex-row items-stretch">
+
+        {/* ── Left: condition hero ── */}
+        <div className="flex items-center gap-5 px-6 py-5 lg:min-w-[280px]">
+          <div className="relative flex-shrink-0">
+            <span className="text-[72px] leading-none drop-shadow-[0_0_18px_rgba(255,159,10,.35)]">
+              {weather?.wx_icon || "🌤️"}
+            </span>
+            {weather && (
+              <span className="absolute -bottom-0.5 -right-1 w-3.5 h-3.5 rounded-full bg-[#30D158] border-2 border-[#0A0C10]" />
+            )}
+          </div>
           <div>
-            <div className={`font-mono font-bold leading-none mb-0.5 ${item.small ? "text-[16px]" : "text-[21px]"}`}>{item.v}</div>
-            <div className="text-[13px] tracking-[.8px] uppercase" style={{ color: "var(--l3)" }}>{item.l}</div>
+            <div className="text-[22px] font-semibold leading-tight">
+              {weather ? (weather.wx || weather.wx_label || "—") : "Locating…"}
+            </div>
+            <div className="flex items-center gap-1 mt-1" style={{ color: "var(--l3)" }}>
+              <span className="text-[13px]">📍</span>
+              <span className="text-[14px] font-medium">{weather?.city || "Waiting for location"}</span>
+            </div>
+            {weather && (
+              <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium tracking-wide"
+                style={{ background: "rgba(48,209,88,.12)", color: "#30D158", border: "1px solid rgba(48,209,88,.2)" }}>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#30D158] animate-pulse inline-block" />
+                LIVE
+              </div>
+            )}
           </div>
         </div>
-      ))}
+
+        {/* ── Vertical divider ── */}
+        <div className="hidden lg:block w-px self-stretch my-4"
+          style={{ background: "var(--sep)" }} />
+        <div className="block lg:hidden h-px mx-6"
+          style={{ background: "var(--sep)" }} />
+
+        {/* ── Right: stats grid ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px flex-1"
+          style={{ background: "var(--sep)" }}>
+          {stats.map((s, i) => (
+            <div key={i} className="flex items-center gap-3 px-5 py-4"
+              style={{ background: "var(--glass)" }}>
+              <span className="text-[28px] flex-shrink-0 leading-none">{s.ico}</span>
+              <div>
+                <div className="font-mono text-[20px] font-bold leading-none">{s.v}</div>
+                <div className="text-[11px] tracking-[.8px] uppercase mt-1" style={{ color: "var(--l3)" }}>{s.l}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

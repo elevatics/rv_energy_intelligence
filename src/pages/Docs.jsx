@@ -17,9 +17,9 @@ export default function Docs() {
   return (
     <div>
       {/* Hero */}
-      <div className="rounded-[22px] border p-7 mb-5"
+      <div className="rounded-2xl border p-6 sm:p-7 mb-6"
         style={{ background: "linear-gradient(135deg,rgba(10,132,255,.12),rgba(48,209,88,.08))", borderColor: "rgba(10,132,255,.2)" }}>
-        <div className="text-[26px] font-bold mb-2">
+        <div className="text-xl sm:text-2xl font-bold mb-3">
           📖 How RV Energy Intelligence Works
         </div>
         <div className="text-[16px] leading-relaxed max-w-[680px]" style={{ color: "var(--l2)" }}>
@@ -28,9 +28,9 @@ export default function Docs() {
         </div>
       </div>
 
-      <div className="grid gap-5" style={{ gridTemplateColumns: "280px 1fr", alignItems: "start" }}>
+      <div className="grid gap-5 lg:grid-cols-[280px_1fr] items-start">
         {/* Left nav */}
-        <div className="rounded-[16px] border p-2 sticky top-[72px]"
+        <div className="rounded-xl border p-2 lg:sticky lg:top-[72px]"
           style={{ background: "var(--glass)", borderColor: "var(--gb)", boxShadow: "0 2px 8px rgba(0,0,0,.4)" }}>
           {NAV.map(n => (
             <button key={n.id} onClick={() => setActive(n.id)}

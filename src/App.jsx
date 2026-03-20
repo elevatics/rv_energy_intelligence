@@ -23,10 +23,10 @@ function Inner() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
+    <div className="min-h-screen font-sans" style={{ background: "var(--bg)", color: "var(--l1)" }}>
       <StatusBar />
       <Navbar />
-      <main className="max-w-[1440px] mx-auto px-5 py-5">
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {activePage === "dash" && <Dashboard />}
         {activePage === "apps" && <Appliances />}
         {activePage === "sim"  && <Simulate />}

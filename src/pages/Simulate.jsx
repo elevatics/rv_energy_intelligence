@@ -58,7 +58,7 @@ export default function Simulate() {
       </div>
 
       {/* Metric strip */}
-      <div className="grid grid-cols-6 gap-2.5 mb-3.5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 mb-5">
         {[
           { v: d.total_load_kwh,                              l: "Load kWh/day",  c: "#0A84FF" },
           { v: d.total_sol_kwh,                               l: "Solar kWh",     c: "#FF9F0A" },
@@ -76,7 +76,7 @@ export default function Simulate() {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 mb-5">
         <Card>
           <CardLabel>24-Hour Power Profile</CardLabel>
           <div className="flex gap-4 mb-2">
@@ -92,7 +92,7 @@ export default function Simulate() {
       </div>
 
       {/* What-If sliders + Breakdown */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
         <Card>
           <CardLabel>What-If Simulator</CardLabel>
 

@@ -17,8 +17,8 @@ export default function StatusBar() {
 
   return (
     <div
-      className="h-[34px] flex items-center gap-3.5 px-5 text-[12px] tracking-[.3px] font-mono border-b"
-      style={{ background: "rgba(0,0,0,.9)", borderColor: "var(--sep)", color: "var(--l3)" }}
+      className="h-10 flex items-center gap-4 px-4 sm:px-6 text-[12px] font-mono border-b"
+      style={{ background: "var(--card)", borderColor: "var(--sep)", color: "var(--l3)" }}
     >
       {/* <div className="w-[5px] h-[5px] rounded-full bg-green breathe flex-shrink-0" /> */}
       <span>ELEVATICS RV ENERGY INTELLIGENCE</span>

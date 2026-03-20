@@ -19,8 +19,8 @@ export default {
         pink:    "#FF375F",
       },
       fontFamily: {
-        sans: ["Inter","Helvetica Neue","Arial","sans-serif"],
-        mono: ["SF Mono","Menlo","Monaco","Courier New","monospace"],
+        sans: ["Plus Jakarta Sans","Helvetica Neue","Arial","sans-serif"],
+        mono: ["JetBrains Mono","SF Mono","Menlo","monospace"],
       },
       backdropBlur: { glass: "20px" },
     },

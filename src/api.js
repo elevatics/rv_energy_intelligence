@@ -52,6 +52,12 @@ export async function runSimulation(params) {
   return r.json();
 }
 
+export async function fetchWeather(lat, lon) {
+  const r = await fetch(`${BASE}/weather?lat=${lat}&lon=${lon}`);
+  if (!r.ok) throw new Error("Failed to fetch weather");
+  return r.json();
+}
+
 export async function logWeather(data) {
   await fetch(`${BASE}/weather`, {
     method: "POST",
