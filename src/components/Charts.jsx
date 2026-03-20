@@ -27,11 +27,11 @@ const baseOpts = (yLabel = "") => ({
   }},
   scales: {
     x: {
-      ticks: { color: "rgba(235,235,245,.3)", font: { size: 9, family: "SF Mono,Menlo,monospace" }, maxRotation: 0, maxTicksLimit: 8 },
+      ticks: { color: "rgba(235,235,245,.35)", font: { size: 10, family: "JetBrains Mono, monospace" }, maxRotation: 0, maxTicksLimit: 8 },
       grid: { display: false },
     },
     y: {
-      ticks: { color: "rgba(235,235,245,.3)", font: { size: 9, family: "SF Mono,Menlo,monospace" } },
+      ticks: { color: "rgba(235,235,245,.35)", font: { size: 10, family: "JetBrains Mono, monospace" } },
       grid: { display: false },
       title: yLabel ? { display: true, text: yLabel, color: "rgba(235,235,245,.3)", font: { size: 9 } } : undefined,
     },

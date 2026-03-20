@@ -86,7 +86,7 @@ export default function Appliances() {
       </div>
 
       {/* Summary stats */}
-      <div className="grid grid-cols-4 gap-2.5 mb-3.5">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
         {[
           { v: totalKwh.toFixed(2), l: "Daily load kWh", c: "#0A84FF" },
           { v: critCount, l: "Critical loads", c: "#FF453A" },
@@ -102,10 +102,11 @@ export default function Appliances() {
       </div>
 
       {/* Table */}
-      <div className="rounded-[22px] border overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,.55)]"
+      <div className="rounded-2xl border overflow-x-auto shadow-lg"
         style={{ background: "var(--glass)", borderColor: "var(--gb)" }}>
         {/* Header */}
-        <div className="grid gap-0.5 px-4 py-2.5 border-b text-[11px] tracking-[1.4px] uppercase"
+        <div
+          className="grid gap-2 px-4 py-3 border-b text-[11px] tracking-widest uppercase min-w-[900px]"
           style={{ gridTemplateColumns: "2.2fr 68px 66px 62px 66px 66px 68px 74px 84px 64px", background: "rgba(255,255,255,.03)", borderColor: "var(--sep)", color: "var(--l3)" }}>
           <span>Appliance</span>
           <span className="text-right">Volt V</span>
@@ -131,7 +132,7 @@ export default function Appliances() {
 
           return (
             <div key={a.id}
-              className="grid gap-0.5 px-4 py-2.5 items-center transition-colors border-t"
+              className="grid gap-2 px-4 py-3 items-center transition-colors border-t min-w-[900px]"
               style={{
                 gridTemplateColumns: "2.2fr 68px 66px 62px 66px 66px 68px 74px 84px 64px",
                 borderColor: "rgba(255,255,255,.04)",

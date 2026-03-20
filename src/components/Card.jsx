@@ -1,7 +1,7 @@
 export function Card({ children, className = "", padding = "p-5", style = {} }) {
   return (
     <div
-      className={`rounded-[22px] border backdrop-blur-[20px] shadow-[0_4px_24px_rgba(0,0,0,.55),0_1px_3px_rgba(0,0,0,.4)] ${padding} ${className}`}
+      className={`rounded-2xl border backdrop-blur-xl shadow-lg ${padding} ${className}`}
       style={{ background: "var(--glass)", borderColor: "var(--gb)", ...style }}
     >
       {children}
@@ -11,7 +11,7 @@ export function Card({ children, className = "", padding = "p-5", style = {} }) 
 
 export function CardLabel({ children }) {
   return (
-    <div className="text-[12px] font-medium tracking-[1.5px] uppercase mb-3.5"
+    <div className="text-[11px] font-medium tracking-widest uppercase mb-4"
       style={{ color: "var(--l3)" }}>
       {children}
     </div>

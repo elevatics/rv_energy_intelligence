@@ -13,10 +13,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-[200] h-[52px] border-b"
-      style={{ background: "rgba(0,0,0,.8)", backdropFilter: "blur(30px) saturate(180%)", borderColor: "var(--sep)" }}
+      className="sticky top-0 z-[200] h-14 border-b"
+      style={{ background: "rgba(10,12,16,.92)", backdropFilter: "blur(20px)", borderColor: "var(--sep)" }}
     >
-      <div className="max-w-[1440px] mx-auto h-full px-5 flex items-center justify-between gap-5">
+      <div className="max-w-[1440px] mx-auto h-full px-4 sm:px-6 flex items-center justify-between gap-4 sm:gap-6">
         {/* Brand */}
         <div className="flex items-center gap-2.5 flex-shrink-0">
           <div className="w-[30px] h-[30px] rounded-[8px] flex items-center justify-center"
@@ -26,18 +26,18 @@ export default function Navbar() {
             </svg>
           </div>
           <div>
-            <div className="text-[15px] font-semibold tracking-[.5px]">Elevatics</div>
-            <div className="text-[11px] tracking-[1px]" style={{ color: "var(--l3)" }}>RV ENERGY INTELLIGENCE</div>
+            <div className="text-[15px] font-semibold tracking-tight">Elevatics</div>
+            <div className="text-[11px] tracking-wider opacity-75">RV ENERGY INTELLIGENCE</div>
           </div>
         </div>
 
         {/* Nav pills */}
-        <div className="flex gap-0.5 rounded-full p-[3px]" style={{ background: "rgba(255,255,255,.05)" }}>
+        <div className="flex gap-0.5 rounded-full p-1 overflow-x-auto" style={{ background: "rgba(255,255,255,.04)" }}>
           {PAGES.map(p => (
             <button
               key={p.id}
               onClick={() => setActivePage(p.id)}
-              className="px-4 py-[5px] rounded-full text-[14px] font-medium cursor-pointer border-none transition-all duration-200 whitespace-nowrap"
+              className="px-4 py-2 rounded-full text-[13px] font-medium cursor-pointer border-none transition-all duration-200 whitespace-nowrap"
               style={{
                 fontFamily: "inherit",
                 background: activePage === p.id ? "rgba(255,255,255,.12)" : "transparent",

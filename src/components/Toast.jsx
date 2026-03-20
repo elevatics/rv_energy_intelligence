@@ -11,7 +11,7 @@ export default function Toast() {
   const c = colors[toast.type] || colors.default;
   return (
     <div
-      className="fixed bottom-6 right-6 z-[900] px-5 py-3 rounded-[12px] text-[12px] font-medium shadow-[0_4px_24px_rgba(0,0,0,.55)] backdrop-blur-[20px] border transition-all duration-300"
+      className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[900] px-4 py-3 rounded-xl text-[13px] font-medium shadow-xl backdrop-blur-xl border transition-all duration-300"
       style={{ background: "rgba(44,44,46,.95)", borderColor: c.border, color: c.color }}
     >
       {toast.msg}

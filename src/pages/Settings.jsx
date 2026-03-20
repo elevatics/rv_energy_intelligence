@@ -89,7 +89,7 @@ export default function Settings() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 gap-3.5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
 
         {/* ── Card 1: Occupancy & Experience ── */}
         <Card>
@@ -177,7 +177,7 @@ export default function Settings() {
         <div className="col-span-2">
           <Card>
             <CardLabel>Quick Persona</CardLabel>
-            <div className="grid grid-cols-4 gap-3 mb-5">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
               {PERSONAS.map(p => (
                 <button key={p.id}
                   onClick={() => loadPersona(p)}
