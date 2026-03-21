@@ -13,7 +13,7 @@ const CAT_FILTERS = [
 ];
 
 export default function Appliances() {
-  const { appliances, setAppliances, simulate, showToast } = useApp();
+  const { appliances, setAppliances, simulate, showToast, simData } = useApp();
   const [filter, setFilter] = useState("all");
   const [modal, setModal] = useState(null); // null | "new" | appliance object
   const [togglingId, setTogglingId] = useState(null);
@@ -24,10 +24,21 @@ export default function Appliances() {
     return a.cat === filter;
   });
 
-  const totalKwh   = appliances.filter(a => a.on).reduce((s, a) => s + (a.effective_watts / 1000) * (a.duty_cycle_pct / 100) * a.hrs, 0);
-  const critCount  = appliances.filter(a => a.on && a.effective_watts > 1500).length;
+  // Build simulated kWh lookup from last simulation breakdown (keyed by name), matching HTML logic
+  const simKwh = {};
+  if (simData?.breakdown) {
+    simData.breakdown.forEach(a => { simKwh[a.name] = parseFloat(a.daily_kwh); });
+  }
+  const hasSimData = simData?.breakdown != null;
+
+  const onAppliances  = appliances.filter(a => a.on);
+  const simVals       = onAppliances.map(a => simKwh[a.name]).filter(v => v !== undefined);
+  const totalKwh      = hasSimData && simVals.length === onAppliances.length
+    ? simVals.reduce((s, v) => s + v, 0)
+    : null;
+  const critCount  = appliances.filter(a => a.on && a.effective_watts > 1000).length;
   const onCount    = appliances.filter(a => a.on).length;
-  const peakKw     = appliances.filter(a => a.on).reduce((s, a) => s + a.effective_watts / 1000, 0);
+  const peakKw     = Math.max(...appliances.filter(a => a.on).map(a => (a.effective_watts || 0) / 1000), 0);
 
   async function handleToggle(a) {
     setTogglingId(a.id);
@@ -88,7 +99,7 @@ export default function Appliances() {
       {/* Summary stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-5">
         {[
-          { v: totalKwh.toFixed(2), l: "Daily load kWh", c: "#0A84FF" },
+          { v: totalKwh !== null ? totalKwh.toFixed(2) : "—", l: "Daily load kWh", c: "#0A84FF" },
           { v: critCount, l: "Critical loads", c: "#FF453A" },
           { v: onCount, l: "Active devices", c: "#30D158" },
           { v: peakKw.toFixed(2), l: "Peak draw kW", c: "#FF9F0A" },
@@ -107,10 +118,12 @@ export default function Appliances() {
           <div className="text-center py-12 text-[15px]" style={{ color: "var(--l3)" }}>No appliances in this category.</div>
         )}
         {filtered.map(a => {
-          const dailyKwh = ((a.effective_watts / 1000) * (a.duty_cycle_pct / 100) * a.hrs).toFixed(3);
-          const maxKwh   = Math.max(...appliances.filter(x => x.on).map(x => (x.effective_watts / 1000) * (x.duty_cycle_pct / 100) * x.hrs), 1);
-          const share    = parseFloat(dailyKwh) / maxKwh;
-          const isCrit   = a.effective_watts > 1500;
+          const simVal   = simKwh[a.name];
+          const hasVal   = simVal !== undefined;
+          const dailyKwh = hasVal ? simVal.toFixed(3) : "—";
+          const maxKwh   = Math.max(...Object.values(simKwh), 0.001);
+          const share    = hasVal ? simVal / maxKwh : 0;
+          const isCrit   = a.effective_watts > 1000;
           return (
             <div key={a.id} className="rounded-[16px] border px-4 py-3.5"
               style={{ background: "var(--glass)", borderColor: "var(--gb)", borderLeft: a.on ? "3px solid rgba(10,132,255,.5)" : "3px solid transparent", opacity: a.on ? 1 : 0.55 }}>
@@ -179,10 +192,12 @@ export default function Appliances() {
         )}
 
         {filtered.map(a => {
-          const dailyKwh = ((a.effective_watts / 1000) * (a.duty_cycle_pct / 100) * a.hrs).toFixed(3);
-          const maxKwh   = Math.max(...appliances.filter(x => x.on).map(x => (x.effective_watts / 1000) * (x.duty_cycle_pct / 100) * x.hrs), 1);
-          const share    = parseFloat(dailyKwh) / maxKwh;
-          const isCrit   = a.effective_watts > 1500;
+          const simVal   = simKwh[a.name];
+          const hasVal   = simVal !== undefined;
+          const dailyKwh = hasVal ? simVal.toFixed(3) : "—";
+          const maxKwh   = Math.max(...Object.values(simKwh), 0.001);
+          const share    = hasVal ? simVal / maxKwh : 0;
+          const isCrit   = a.effective_watts > 1000;
 
           return (
             <div key={a.id}
