@@ -147,11 +147,11 @@ export default function Dashboard() {
           </Card>
           <Card>
             <CardLabel>Battery SOC Prediction (24h)</CardLabel>
-            <SocChart socHourly={d.soc_hourly} height={165} />
+            <SocChart socHourly={d.soc_hourly} height={195} />
           </Card>
           <Card>
             <CardLabel>Net Power Balance · Solar − Load</CardLabel>
-            <NetChart netHourly={d.net_hourly} height={165} />
+            <NetChart netHourly={d.net_hourly} height={195} />
           </Card>
         </div>
 
